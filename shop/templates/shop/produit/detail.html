@@ -1,0 +1,74 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}{{ produit.nom }}{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div>
+                <div class="reflow-product">
+                    <div class="ref-media">
+                        <div class="ref-preview shadow rounded-5">
+                            <img class="ref-image active shadow" src="{{ produit.image.url }}" alt="{{ produit.nom }}" />
+                        </div>
+                        {% if produit.promotion %}
+                            <div class="ref-promo-badge">{{ produit.promotion.taux_de_reduction }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="ref-product-data">
+                        <h2 class="ref-name">{{ produit.nom }}</h2>
+                        <div class="ref-rating ">
+                            {% for _ in "12345" %}
+                                <span class="star">&#9733;</span>
+                            {% endfor %}
+                        </div>
+                        <div class="ref-categories">
+                            <span href="{{ produit.categorie.get_absolute_url }}" class="ref-category">{{ produit.categorie.nom }}</span>
+                        </div>
+                        <strong class="ref-price ref-on-sale">
+                            {% if produit.promotion %}
+                                <s class="ref-original-price">${{ produit.prix }}</s>${{ produit.prix_promotionnel }}
+                            {% else %}
+                                ${{ produit.prix }}
+                            {% endif %}
+                        </strong>
+                        <span>
+                            <div class="reflow-add-to-cart ref-product-controls">
+                                <div class="ref-variant">
+                                    <label>
+                                    </label>
+                                </div>
+                                <span>
+                                    <div class="ref-quantity-widget shadow">
+                                        <div class="ref-decrease">
+                                            <span></span>
+                                        </div>
+                                        <input type="text" value="1" />
+                                        <div class="ref-increase">
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <a class="ref-button shadow" href="#">Add to Cart</a>
+                            </div>
+                        </span>
+                        <div class="ref-description"></div>
+                    </div>
+                </div>
+            </div>
+        <!-- Ajout de la section pour la description -->
+            <div class="row mt-3 shadow rounded-3 p-3">
+                <div class="col">
+                    <h5>Description</h5>
+                    <hr>
+                    <div class="ref-categories">
+                        {% for key, value in produit.description.items %}
+                            <span style="color: dimgray"><b>{{ key }}:</b></span>
+                            <span class="ref-category float-end">{{ value }}</span><br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

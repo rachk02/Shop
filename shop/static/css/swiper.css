@@ -1,0 +1,24 @@
+/* Style pour les boutons et pagination du swiper */
+.swiper-button-prev,
+        .swiper-button-next,
+        .swiper-pagination {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.5s, opacity 0.5s ease-in-out;
+        }
+
+        .swiper-container:hover .swiper-button-prev,
+        .swiper-container:hover .swiper-button-next,
+        .swiper-container:hover .swiper-pagination {
+            visibility: visible;
+            opacity: 0.3;
+        }
+
+/* Style pour les étoiles du rating */
+.ref-rating {
+    color: #ffc107; /* Couleur de remplissage jaune */
+    font-size: 16px; /* Taille de police ajustable */
+}
+.star {
+    display: inline-block;
+}

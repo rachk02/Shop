@@ -1,0 +1,131 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    Clord
+{% endblock %}
+
+{% block content%}
+    <div class="simple-slider">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" style="background: url('{% static 'image/prom/theres-no-place-like-localhost-51.jpg' %}') center center / cover no-repeat;"></div>
+                <div class="swiper-slide" style="background: url('{% static 'image/prom/xbox-ct.jpg' %}') center center / cover no-repeat;"></div>
+                <div class="swiper-slide" style="background: url('{% static 'image/prom/xbox-one-x-controller-jo.jpg' %}') center center / cover no-repeat;"></div>
+                <div class="swiper-slide" style="background: url('{% static 'image/prom/the-lords-of-the-fallen-2024-4k-hn.jpg' %}') center center / cover no-repeat;"></div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-white"></div>
+            <div class="swiper-button-prev text-white"></div>
+            <div class="swiper-button-next text-white"></div>
+        </div>
+    </div>
+
+    <section class="py-4">
+        <!-- Start: Produit -->
+        <div class="container py-4">
+            <div class="row mb-4 mb-lg-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2 class="fw-bold"></h2>
+                    <!-- Placeholder for messages -->
+                    <p class="text-black"></p>
+                </div>
+            </div>
+            <div class="row mx-auto">
+                <div class="col">
+                    <div>
+                        <div class="reflow-product-list ref-cards">
+                            <div class="ref-products">
+                                {% for produit in produits %}
+                                    <div class="ref-product shadow rounded">
+                                        <a class="ref-product" href="{{ produit.get_absolute_url }}">
+                                            <div class="ref-media">
+                                                <img class="ref-image rounded" src="{{ produit.image.url }}" alt="{{ produit.slug }}" loading="lazy" />
+                                                <!-- reduction banniere -->
+                                                {% if produit.promotion %}
+                                                    <div class="ref-promo-badge">
+                                                        <s>{{ produit.promotion.taux_de_reduction}} %</s>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="ref-product-data p-2">
+                                                <div class="ref-product-info">
+                                                    <h5 class="ref-name">{{ produit.nom }}</h5>
+                                                    <div class="ref-rating ">
+                                                        {% for _ in "12345" %}
+                                                            <span class="star">&#9733;</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <p class="ref-excerpt">
+                                                        {{ produit.description.Résolution|default:"N/A" }}
+                                                    </p>
+                                                    </div>
+                                                {% if produit.promotion %}
+                                                    <strong class="ref-price ref-on-sale">
+                                                        <s class="ref-original-price">${{ produit.prix }}</s>${{ produit.prix_promotionnel }}
+                                                    </strong>
+                                                {% else %}
+                                                    <strong class="ref-price ref-on-sale">
+                                                        ${{ produit.prix }}
+                                                    </strong>
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                        <div class="ref-addons">
+                                            <div class="d-inline-block float-end p-3">
+                                                <a class="ref-product" href="{{ produit.get_absolute_url }}"></a>
+                                                <a class="ref-button preview-toggle shadow-lg" href="#">Ajouter au panier</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p class="mb-4 text-center mx-auto" style="font-size: 1.0rem;">
+                <a data-bss-hover-animate="pulse" href="{% url "shop:produit_list" %}">voir plus</a>
+            </p>
+        </div><!-- End: Produit -->
+    </section>
+
+    <!-- Start: Marques -->
+    <section class="py-0">
+        <div class="container text-center py-0">
+            <div class="container d-flex flex-wrap justify-content-center align-items-center py-2">
+                {% for marque in marques_aleatoires %}
+                    <a href="{{ marque.get_absolute_url }}" class="brand-container text-center m-3">
+                        <img class="m-3 shadow rounded-2" width="65" height="65" src="{{ marque.image.url }}" alt="{{ marque.nom }}">
+                        <p>{{ marque.nom }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+            <hr>
+            <p class="mb-4" style="font-size: 1.1rem;">
+                <a data-bss-hover-animate="pulse" href="{% url "shop:marque_list" %}">voir plus</a>
+            </p>
+        </div>
+    </section><!-- End: Marques -->
+
+    <!-- Start: Blog -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-white bg-primary border rounded border-primary d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5">
+                <div class="text-center text-lg-start py-3 py-lg-1">
+                    <h2 class="fw-bold mb-2">Subscribe to our newsletter</h2>
+                    <p class="mb-0">Le monde Otaku t'attend</p>
+                </div>
+                <form class="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post">
+                    <div class="my-2">
+                        <label>
+                            <input class="border rounded-pill shadow-sm form-control" type="email" name="email" placeholder="Votre Email">
+                        </label>
+                    </div>
+                    <div class="my-2 ">
+                        <button class="btn btn-secondary shadow ms-2" type="submit">Subscribe </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section><!-- End: Blog -->
+{% endblock %}

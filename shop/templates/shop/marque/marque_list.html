@@ -1,0 +1,19 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Marques
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container d-flex flex-wrap justify-content-center align-items-center py-5">
+            {% for marque in marques %}
+                <a href="{{ marque.get_absolute_url }}" class="brand-container text-center m-3">
+                    <img class="m-3 shadow rounded-2" width="65" height="65" src="{{ marque.image.url }}" alt="{{ marque.nom }}">
+                    <p>{{ marque.nom }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

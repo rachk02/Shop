@@ -1,0 +1,19 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container d-flex flex-wrap justify-content-center align-items-center py-5 shadow rounded-5">
+            {% for categorie in categories %}
+                <a href="{{ categorie.get_absolute_url }}" class="brand-container text-center m-3">
+                    <img class="m-3 shadow rounded-1" width="65" height="65" src="{{ categorie.image.url }}" alt="{{ categorie.nom }}">
+                    <p>{{ categorie.nom }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

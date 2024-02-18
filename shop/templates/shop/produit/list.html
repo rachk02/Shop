@@ -1,0 +1,78 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    {% if marque %}{{ marque.nom }}{% elif categorie %}{{ categorie.nom }}{% else %} Produits {% endif %}
+{% endblock %}
+
+{% block content%}
+    <section class="py-5">
+        <!-- Start: Product -->
+        <div class="container py-5">
+            <div class="row mb-4 mb-lg-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2 class="fw-bold">Produits</h2>
+                    <!-- Placeholder for messages -->
+                    <p class="text-black"></p>
+                </div>
+            </div>
+            <div class="row mx-auto">
+                <div class="col">
+                    <div>
+                        <div class="reflow-product-list ref-cards">
+                            <div class="ref-products">
+                                {% for produit in produits %}
+                                    <div class="ref-product shadow rounded">
+                                        <a class="ref-product" href="{{ produit.get_absolute_url }}">
+                                            <div class="ref-media">
+                                                <img class="ref-image rounded" src="{{ produit.image.url }}" alt="{{ produit.slug }}" loading="lazy" />
+                                                <!-- reduction banniere -->
+                                                {% if produit.promotion %}
+                                                    <div class="ref-promo-badge"><s>{{ produit.promotion.taux_de_reduction}} %</s></div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="ref-product-data p-2">
+                                                <div class="ref-product-info">
+                                                    <h5 class="ref-name">{{ produit.nom }}</h5>
+                                                    <div class="ref-rating ">
+                                                        {% for _ in "12345" %}
+                                                            <span class="star">&#9733;</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <p class="ref-excerpt">
+                                                        {{ produit.description.Résolution|default:"N/A" }}
+                                                    </p>
+                                                </div>
+                                                {% if produit.promotion %}
+                                                    <strong class="ref-price ref-on-sale">
+                                                        <s class="ref-original-price">${{ produit.prix }}</s>${{ produit.prix_promotionnel }}
+                                                    </strong>
+                                                {% else %}
+                                                    <strong class="ref-price">
+                                                        ${{ produit.prix }}
+                                                    </strong>
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                        <div class="ref-addons">
+                                            <div class="d-inline-block float-end p-3">
+                                                <a class="ref-product" href="{{ produit.get_absolute_url }}"></a>
+                                                <a class="ref-button preview-toggle shadow-lg" href="#">Ajouter au panier</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ref-product-preview">
+                        <div class="ref-product-preview-header">
+                            <div class="ref-title"></div>
+                            <div class="ref-close-button">×</div>
+                        </div>
+                        <div class="ref-product-preview-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
