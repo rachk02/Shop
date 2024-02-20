@@ -1,0 +1,12 @@
+.form-check-input:checked {
+    background-color: #28a745; /* Couleur de fond lorsque c'est ON */
+    border-color: #28a745; /* Couleur de bordure lorsque c'est ON */
+}
+
+.form-check-label {
+    color: #6c757d; /* Couleur du texte par défaut */
+}
+
+#descriptionContent {
+        transition: all 0.3s ease; /* Transition en douceur sur toutes les propriétés pendant 0.3s */
+    }

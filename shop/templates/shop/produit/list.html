@@ -54,9 +54,17 @@
                                             </div>
                                         </a>
                                         <div class="ref-addons">
-                                            <div class="d-inline-block float-end p-3">
-                                                <a class="ref-product" href="{{ produit.get_absolute_url }}"></a>
-                                                <a class="ref-button preview-toggle shadow-lg" href="#">Ajouter au panier</a>
+                                            <span>
+                                                <form id="ajouterProduitForm" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="ref-quantity-widget shadow">
+                                                        <input type="text" value="1" id="id_quantite" name="quantite" class="ref-quantity-field ref-quantity-input" style="display: none">
+                                                    </div>
+                                                </form>
+                                            </span>
+                                            <div class="d-flex justify-content-around pb-2">
+                                                <a class="ref-button preview-toggle shadow shadow-lg" href="#" style="background-color: #8FDB76">Acheter</a>
+                                                <a class="ref-button ajouter-au-panier-btn shadow" data-produit-id="{{ produit.id }}" type="button">Ajouter au panier</a>
                                             </div>
                                         </div>
                                     </div>
