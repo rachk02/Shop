@@ -46,7 +46,7 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                            <div class="ref-product-data p-2">
+                                            <div class="ref-product-data p-2" style="opacity: 0.9">
                                                 <div class="ref-product-info">
                                                     <h5 class="ref-name">{{ produit.nom }}</h5>
                                                     <div class="ref-rating ">
@@ -72,15 +72,16 @@
                                         <div class="ref-addons">
                                             <div class="d-flex justify-content-around pb-2">
                                                 <span>
-                                                    <form id="ajouterProduitForm" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
+                                                    <form id="ajouterProduitForm-{{ produit.id }}" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
                                                         {% csrf_token %}
+                                                        <input type="hidden" name="produit_id" value="1">
                                                         <div class="ref-quantity-widget shadow">
-                                                            <input type="text" value="1" id="id_quantite" name="quantite" class="ref-quantity-field ref-quantity-input" style="display: none">
+                                                            <input type="text" value="1" name="quantite" class="ref-quantity-field ref-quantity-input" style="display: none">
                                                         </div>
                                                     </form>
                                                 </span>
                                                 <a class="ref-button preview-toggle shadow shadow-lg" href="#" style="background-color: #8FDB76">Acheter</a>
-                                                <a id="ajouterAuPanierBtn" class="ref-button shadow ajouter-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="button">Ajouter au panier</a>
+                                                <a id="ajouterAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
                                             </div>
                                         </div>
                                     </div>

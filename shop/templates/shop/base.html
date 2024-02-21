@@ -22,7 +22,7 @@
 <body class="bg-light text-dark">
     <header class="bg-dark shadow-lg">
         <!-- Start: Navbar -->
-        <nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav">
+        <nav class="navbar navbar-expand-md sticky-top py-2 navbar-dark" id="mainNav">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{% url "shop:homepage" %}">
                     <span class="bs-icon-sm bs-icon-rounded bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon" style="color: rgb(66,107,242);background: rgb(255, 255, 255);">
@@ -38,7 +38,7 @@
                     <ul class="navbar-nav me-auto" style="padding-left: 0px;color: rgb(0,0,0);">
                         <li class="nav-item dropdown">
                             <a class="nav-link" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#">Marques&nbsp;</a>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu" style="opacity: 0.8">
                                 {% for marque in marques %}
                                     {% if marque in marques_to_display %}
                                         <a class="dropdown-item" href={{ marque.get_absolute_url }}>{{ marque.nom }}</a>
@@ -49,7 +49,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside">Categories&nbsp;</a>
-                            <div class="dropdown-menu flex-row" style="padding-left: 0px;margin-left: 0px;margin-bottom: 48px;padding-bottom: 0px;">
+                            <div class="dropdown-menu flex-row" style="padding-left: 0px;margin-left: 0px;margin-bottom: 48px;padding-bottom: 0px; opacity: 0.8">
                                 {% for categorie in categories %}
                                     {% if categorie in categories_to_display %}
                                         <a class="dropdown-item" href="{{ categorie.get_absolute_url }}">{{ categorie.nom }}</a>
@@ -70,13 +70,13 @@
                     </ul>
                 </div>
                 <span class="bs-icon-sm bs-icon-circle bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 16 16" class="bi bi-search">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
                     </svg>
                 </span>
                 <a class="position-relative" href="{% url "cart:panier_detail" %}">
                     <span class="bs-icon-sm bs-icon-circle bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 16 16" class="bi bi-cart3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" fill="currentColor" viewBox="0 0 16 16" class="bi bi-cart3">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
                         </svg>
                     </span>
@@ -88,9 +88,31 @@
                         {% endif %}
                     {% endwith %}
                 </a>
-                <span class="bs-icon-sm bs-icon-circle bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon">
-                    <i class="la la-user"></i>
-                </span>
+                <div class="dropdown">
+                    <a class="nav-link" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="bs-icon-sm bs-icon-circle bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon">
+                            {% if utilisateur.is_authenticated and utilisateur.image %}
+                                <img src="{{ utilisateur.image.url }}" alt="{{ utilisateur.nom }}" class="img-fluid" style="max-width: 30px; max-height: 30px;">
+                            {% else %}
+                            <svg class="bi bi-person" xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"></path>
+                            </svg>
+                            {% endif %}
+
+                        </span>
+                    </a>
+                    <div class="dropdown-menu" id="monElement" style="opacity: 0.9" aria-labelledby="userDropdown">
+                        {% if utilisateur.is_authenticated %}
+                            <a class="dropdown-item" href="#">Profil</a>
+                            <a class="dropdown-item" href="#">Notifications</a>
+                            <a class="dropdown-item" href="#">Commandes</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url "account:deconnexion" %}">Se déconnecter</a>
+                        {% else %}
+                            <a class="dropdown-item" href="{% url "account:connexion" %}">Se connecter</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </nav><!-- End: Navbar -->
     </header>
@@ -118,8 +140,12 @@
                     <h3 class="fs-6 fw-bold text-white">Compte</h3>
                     <ul class="list-unstyled">
                         <li><a href="#">Gérer votre compte</a></li>
-                        <li><a href="#">mdp oublie</a></li>
-                        <li><a href="#">Connexion</a></li>
+                        <li><a href="{% url "account:mdp_reinit_dem" %}">mdp oublie</a></li>
+                        {% if utiliasteur.is_authenticated %}
+                            <li><a href="{% url "account:deconnexion" %}">Deconnexion</a></li>
+                        {% else %}
+                            <li><a href="{% url "account:connexion" %}">Connexion</a></li>
+                        {% endif %}
                     </ul>
                 </div><!-- End: Compte -->
                 <!-- Start: A propos -->
@@ -188,6 +214,7 @@
     <script src="{% static "js/Simple-Slider.js" %}"></script>
     <script src="{% static "js/Quantity-Widgets.js" %}"></script>
     <script src="{% static "js/Switch.js" %}"></script>
+    <script src="{% static "js/AjouterAuPanierProduitDetail.js" %}"></script>
     <script src="{% static "js/Item-Quantity-Controler.js" %}"></script>
     <script src="{% static "js/Submit-Link.js" %}"></script>
     <script src="{% static "js/Quantity-Updater.js" %}"></script>

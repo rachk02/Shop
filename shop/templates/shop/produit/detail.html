@@ -41,7 +41,7 @@
                                     </label>
                                 </div>
                                 <span>
-                                    <form id="ajouterProduitForm" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
+                                    <form id="ajouterProduitPanierForm" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
                                         {% csrf_token %}
                                         <div class="ref-quantity-widget shadow">
                                             <div id="decreaseButton" class="ref-decrease" onclick="decreaseQuantite()">
@@ -55,7 +55,7 @@
                                     </form>
                                 </span>
                                 <a class="ref-button shadow" href="#" style="background-color: #8FDB76">Acheter</a>
-                                <a class="ref-button ajouter-au-panier-btn shadow" data-produit-id="{{ produit.id }}" type="button">Ajouter au panier</a>
+                                <a class="ref-button ajouter-au-panier-btn-produit shadow" data-produit-id="{{ produit.id }}" type="button" onclick="ajouterAuPan({{ produit.id }})">Ajouter au panier</a>
                                 <div class="form-check form-switch">
                                     <span ></span>
                                     <label class="form-check-label" for="descriptionSwitch">Description</label>

@@ -22,3 +22,7 @@
 .star {
     display: inline-block;
 }
+.card {
+        backdrop-filter: blur(8px); /* Ajustez la valeur de flou selon vos préférences */
+        background-color: rgba(255, 255, 255, 0.8); /* Ajustez la couleur et l'opacité selon vos préférences */
+}

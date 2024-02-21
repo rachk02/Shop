@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     ajouterAuPanierBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
             var produitId = btn.getAttribute('data-produit-id');
-            var ajouterProduitForm = document.getElementById('ajouterProduitForm');
+            var ajouterProduitForm = document.getElementById('ajouterProduitForm-' + produitId);
 
             if (ajouterProduitForm) {
                 ajouterProduitForm.submit();
@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     retirerDuPanierBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
-            var produitId = btn.getAttribute('data-produit-id');
-            var retirerProduitForm = document.getElementById('retirerProduitForm');
+            var produitId = btn.getAttribute('data-retirer-id');
+            var retirerProduitForm = document.getElementById('retirerProduitForm-' + produitId);
 
             if (retirerProduitForm) {
                 retirerProduitForm.submit();

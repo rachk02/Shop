@@ -1,12 +1,28 @@
 .form-check-input:checked {
-    background-color: #28a745; /* Couleur de fond lorsque c'est ON */
-    border-color: #28a745; /* Couleur de bordure lorsque c'est ON */
+    background-color: #28a745;
+    border-color: #28a745;
 }
 
 .form-check-label {
-    color: #6c757d; /* Couleur du texte par défaut */
+    color: #6c757d;
 }
 
 #descriptionContent {
-        transition: all 0.3s ease; /* Transition en douceur sur toutes les propriétés pendant 0.3s */
+        transition: all 0.3s ease;
+        opacity: 0.9;
     }
+
+.dropdown-item:hover {
+    transform: scale(1.2);
+    background-color: transparent !important;
+    transition: transform 0.3s ease;
+}
+
+#monElement {
+    transform: scale(0.9); /* Réduire la taille de moitié */
+}
+
+.large-container {
+    max-width: 1200px; /* Ajustez la largeur maximale selon vos besoins */
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+}

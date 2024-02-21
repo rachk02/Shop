@@ -84,16 +84,16 @@
                                                     <div class="ref-product-quantity">
                                                         <div class="ref-quantity-container">
                                                             <span>
-                                                                <form id="ajouterProduitForm" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
+                                                                <form action="{% url "cart:reinit_produit" produit.id %}" method="post">
                                                                     {% csrf_token %}
                                                                     <div class="ref-quantity-widget shadow">
-                                                                        <div class="ref-decrease" onclick="decreaseQuantity({{ produit.id }})">
+                                                                        <div id="decreaseButton" class="ref-decrease" onclick="decreaseQuantite()">
                                                                             <span></span>
                                                                         </div>
-                                                                        <input type="text" value={{ item.quantite }} id="id_quantite_{{ produit.id }}" name="quantite" class="ref-quantity-field ref-quantity-input">
-                                                                        <div class="ref-increase" onclick="increaseQuantity({{ produit.id }})">
-                                                                            <span></span>
-                                                                        </div>
+                                                                        <input type="text" value={{ item.quantite }} name="quantite" class="ref-quantity-field ref-quantity-input">
+                                                                        <div id="increaseButton" class="ref-increase" onclick="increaseQuantite()">
+                                                                        <span></span>
+                                                                    </div>
                                                                     </div>
                                                                 </form>
                                                             </span>
