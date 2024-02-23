@@ -144,6 +144,6 @@ EMAIL_HOST_USER = 'id.antlidrl@gmail.com'
 EMAIL_HOST_PASSWORD = 'tubyebcrvrjfzmwm'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'rachk02@clordInc.com'
+DEFAULT_FROM_EMAIL = 'rachk02@outlook.fr'
 
 AUTH_USER_MODEL = 'account.Utilisateur'

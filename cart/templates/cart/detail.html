@@ -48,19 +48,18 @@
                                                                     <div class="ref-quantity-container">
                                                                         <div class="ref-quantity-widget">
                                                                             <span>
-                                                                                <form id="ajouterProduitForm" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
-                                                                                    {{ item.update_quantity_form.quantity }}
-                                                                                    <input type="submit" value="Update">
+                                                                                <form id="majQteForm" action="{% url "cart:maj_quantite" produit.id %}" method="post" class="maj-quantite-form" data-produit-id="{{ produit.id }}">
                                                                                     {% csrf_token %}
                                                                                     <div class="ref-quantity-widget shadow">
-                                                                                        <div class="ref-decrease" onclick="decreaseQuantity({{ produit.id }})">
+                                                                                        <div class="ref-decrease cart-decrease" onclick="decreasePinPQuantite('{{ produit.id }}')">
                                                                                             <span></span>
                                                                                         </div>
-                                                                                        <input type="text" value={{ item.quantite }} id="id_quantite_{{ produit.id }}" name="quantite" class="ref-quantity-field ref-quantity-input">
-                                                                                        <div class="ref-increase" onclick="increaseQuantity({{ produit.id }})">
+                                                                                        <input type="text" value="{{ item.quantite }}" name="quantite" class="ref-quantity-field ref-quantity-input" style="font-size: 17px">
+                                                                                        <div class="ref-increase cart-increase" onclick="increasePinPQuantite('{{ produit.id }}')">
                                                                                             <span></span>
                                                                                         </div>
                                                                                     </div>
+                                                                                    <input type="hidden" name="produit_id" value="{{ produit.id }}">
                                                                                 </form>
                                                                             </span>
                                                                         </div>

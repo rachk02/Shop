@@ -45,8 +45,8 @@ def maj_quantite(request, id_produit):
         formulaire = FormulaireMajQuantite(request.POST)
         if formulaire.is_valid():
             cd = formulaire.cleaned_data
-            panier.ajouter(produit=produit,
-                           quantite=cd['quantite'])
+            panier.maj(produit=produit,
+                       quantite=cd['quantite'])
     return redirect('cart:panier_detail')
 
 
