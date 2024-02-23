@@ -10,7 +10,7 @@
         <div class="container py-5">
             <div class="row mb-4 mb-lg-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2 class="fw-bold">Produits</h2>
+                    <h2 class="fw-bold"></h2>
                     <!-- Placeholder for messages -->
                     <p class="text-black"></p>
                 </div>
@@ -54,18 +54,14 @@
                                             </div>
                                         </a>
                                         <div class="ref-addons">
-                                            <span>
-                                                <form id="ajouterProduitForm-{{ produit.id }}" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
-                                                        {% csrf_token %}
-                                                        <input type="hidden" name="produit_id" value="1">
-                                                        <div class="ref-quantity-widget shadow">
-                                                            <input type="text" value="1" name="quantite" class="ref-quantity-field ref-quantity-input" style="display: none">
-                                                        </div>
-                                                    </form>
-                                            </span>
                                             <div class="d-flex justify-content-around pb-2">
+                                                <span>
+                                                    <form id="ajouterUnAuPanierForm-{{ produit.id }}" action="{% url "cart:ajouter-un" produit.id %}" method="post">
+                                                        {% csrf_token %}
+                                                    </form>
+                                                </span>
                                                 <a class="ref-button preview-toggle shadow shadow-lg" href="#" style="background-color: #8FDB76">Acheter</a>
-                                                <a id="ajouterAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
+                                                <a id="ajouterUnAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-un-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
                                             </div>
                                         </div>
                                     </div>

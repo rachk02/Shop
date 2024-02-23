@@ -8,6 +8,13 @@ class FormulaireAjout(forms.Form):
         max_value=99,
         widget=forms.NumberInput(attrs={'class': 'ref-quantity-input'})
     )
-    ecraser = forms.BooleanField(required=False,
-                                 initial=False,
-                                 widget=forms.HiddenInput)
+
+
+class FormulaireSimple(forms.Form):
+    def vide(self):
+        return None
+
+
+class FormulaireMajQuantite(forms.Form):
+    quantite = forms.IntegerField(min_value=1,
+                                  widget=forms.HiddenInput())

@@ -11,17 +11,4 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-
-    var retirerDuPanierBtns = document.querySelectorAll('.retirer-du-panier-btn');
-
-    retirerDuPanierBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var produitId = btn.getAttribute('data-retirer-id');
-            var retirerProduitForm = document.getElementById('retirerProduitForm-' + produitId);
-
-            if (retirerProduitForm) {
-                retirerProduitForm.submit();
-            }
-        });
-    });
 });

@@ -23,8 +23,8 @@ def homepage(request):
     categories = Categorie.objects.all()
     promo_clearer()
     produits = Produit.objects.filter(disponible=True)
-    produits_aleatoires = random.sample(list(produits), 2)
-    marques_aleatoires = random.sample(list(marques), 8)
+    produits_aleatoires = random.sample(list(produits), 12)
+    marques_aleatoires = random.sample(list(marques), 9)
     return render(request,
                   'shop/index.html',
                   {'marques': marques,
@@ -33,7 +33,8 @@ def homepage(request):
                    'categories_to_display': categories_to_display,
                    'produits': produits_aleatoires,
                    'marques_aleatoires': marques_aleatoires,
-                   'formulaire_ajout': formulaire_ajout})
+                   'formulaire_ajout': formulaire_ajout,
+                   'utilisateur': request.user})
 
 
 def marque_list(request):
@@ -44,7 +45,8 @@ def marque_list(request):
                   {'marques': marques,
                    'categories': categories,
                    'marques_to_display': marques_to_display,
-                   'categories_to_display': categories_to_display})
+                   'categories_to_display': categories_to_display,
+                   'utilisateur': request.user})
 
 
 def categorie_list(request):
@@ -55,7 +57,8 @@ def categorie_list(request):
                   {'categories': categories,
                    'marques': marques,
                    'marques_to_display': marques_to_display,
-                   'categories_to_display': categories_to_display})
+                   'categories_to_display': categories_to_display,
+                   'utilisateur': request.user})
 
 
 def produit_list(request, categorie_slug=None, marque_slug=None):
@@ -91,8 +94,8 @@ def produit_list(request, categorie_slug=None, marque_slug=None):
                    'produits': produits,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'formulaire_ajout': formulaire_ajout
-                   })
+                   'formulaire_ajout': formulaire_ajout,
+                   'utilisateur': request.user})
 
 
 def produit_list_marque(request, marque_slug):
@@ -115,8 +118,8 @@ def produit_list_marque(request, marque_slug):
                    'produits': produits,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'formulaire_ajout': formulaire_ajout
-                   })
+                   'formulaire_ajout': formulaire_ajout,
+                   'utilisateur': request.user})
 
 
 def produit_list_categorie(request, categorie_slug):
@@ -139,8 +142,8 @@ def produit_list_categorie(request, categorie_slug):
                    'produits': produits,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'formulaire_ajout': formulaire_ajout
-                   })
+                   'formulaire_ajout': formulaire_ajout,
+                   'utilisateur': request.user})
 
 
 def produit_list_marque_categorie(request, marque_slug, categorie_slug):
@@ -165,8 +168,8 @@ def produit_list_marque_categorie(request, marque_slug, categorie_slug):
                    'produits': produits,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'formulaire_ajout': formulaire_ajout
-                   })
+                   'formulaire_ajout': formulaire_ajout,
+                   'utilisateur': request.user})
 
 
 def produit_detail(request, id, slug):
@@ -183,5 +186,5 @@ def produit_detail(request, id, slug):
                    'categories': categories,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'formulaire_ajout': formulaire_ajout
-                   })
+                   'formulaire_ajout': formulaire_ajout,
+                   'utilisateur': request.user})

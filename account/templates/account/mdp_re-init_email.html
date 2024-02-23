@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</head>
-<body>
-    <p>Quelqu'un a demandé la réinitialisation du mot de passe pour l'adresse e-mail {{ user_email }}. Suivez le lien ci-dessous :</p>
-    <p><a href="{{ reset_link }}">{{ reset_link }}</a></p>
-    <p>Votre nom d'utilisateur, au cas où vous l'auriez oublié : {{ nom_utilisateur }}</p>
-</body>
-</html>
+{% load static %}
+{% load tz %}
+
+
+{% get_current_timezone as TIME_ZONE %}
+{% localtime on %}
+
+{% now "H" as current_hour %}
+
+{% if current_hour|time:'H' >= 4 and current_hour|time:'H' < 12 %}
+    Bonjour {{ username }},<br>
+{% else %}
+    Bonsoir {{ username }},<br>
+{% endif %}
+<br>
+Vous recevez cet e-mail car une demande de réinitialisation de mot de passe a été effectuée pour votre compte.<br>
+<br>
+Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :<br>
+<a href="{{ lien }}">{{ lien }}</a><br>
+<br>
+Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.<br>
+<br>
+Cordialement,<br>
+L'équipe de votre site.
+{% endlocaltime %}

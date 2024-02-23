@@ -1,0 +1,111 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Editer profil
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+    <div class="container">
+        <form class="d-flex row" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-lg-4">
+                <div class="card mb-3 shadow rounded-3">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Photo de profile</p>
+                    </div>
+                    <div class="card-body text-center">
+                        {% if utilisateur.image %}
+                            <img class="rounded-circle mb-3 mt-4" src="{{ utilisateur.image.url }}" width="160" height="160">
+                        {% else %}
+                            <svg class="bi bi-person" xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"></path>
+                            </svg>
+                        {% endif %}
+                        <div class="mb-3 form-control">
+                            {{ formulaire.image }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div>
+                        <div class="card d-flex flex-column shadow mb-3">
+                            <div class="card">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">Identifiants</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.nom }}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.prenom }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.email }}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.date_naissance }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary btn-sm" type="submit">Enregidtrer les modifications</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">Coordonnees</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.telephone }}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.adresse }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.ville }}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3 form-label">
+                                                {{ formulaire.pays }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary btn-sm" type="submit">Enregidtrer les modifications</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </section>
+{% endblock %}

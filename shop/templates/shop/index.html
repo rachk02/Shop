@@ -8,10 +8,9 @@
     <div class="simple-slider">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background: url('{% static 'image/prom/theres-no-place-like-localhost-51.jpg' %}') center center / cover no-repeat;"></div>
-                <div class="swiper-slide" style="background: url('{% static 'image/prom/xbox-ct.jpg' %}') center center / cover no-repeat;"></div>
-                <div class="swiper-slide" style="background: url('{% static 'image/prom/xbox-one-x-controller-jo.jpg' %}') center center / cover no-repeat;"></div>
-                <div class="swiper-slide" style="background: url('{% static 'image/prom/the-lords-of-the-fallen-2024-4k-hn.jpg' %}') center center / cover no-repeat;"></div>
+                <div class="swiper-slide" style="background: url('{% static 'images/prom/xbox-ct.jpg' %}') center center / cover no-repeat;"></div>
+                <div class="swiper-slide" style="background: url('{% static 'images/prom/xbox-one-x-controller-jo.jpg' %}') center center / cover no-repeat;"></div>
+                <div class="swiper-slide" style="background: url('{% static 'images/prom/the-lords-of-the-fallen-2024-4k-hn.jpg' %}') center center / cover no-repeat;"></div>
             </div>
             <div class="swiper-pagination swiper-pagination-white"></div>
             <div class="swiper-button-prev text-white"></div>
@@ -19,7 +18,7 @@
         </div>
     </div>
 
-    <section class="py-4">
+    <section class="px-4 py-4">
         <!-- Start: Produit -->
         <div class="container py-4">
             <div class="row mb-4 mb-lg-5">
@@ -72,16 +71,12 @@
                                         <div class="ref-addons">
                                             <div class="d-flex justify-content-around pb-2">
                                                 <span>
-                                                    <form id="ajouterProduitForm-{{ produit.id }}" action="{% url "cart:ajouter_produit" produit.id %}" method="post">
+                                                    <form id="ajouterUnAuPanierForm-{{ produit.id }}" action="{% url "cart:ajouter-un" produit.id %}" method="post">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="produit_id" value="1">
-                                                        <div class="ref-quantity-widget shadow">
-                                                            <input type="text" value="1" name="quantite" class="ref-quantity-field ref-quantity-input" style="display: none">
-                                                        </div>
                                                     </form>
                                                 </span>
                                                 <a class="ref-button preview-toggle shadow shadow-lg" href="#" style="background-color: #8FDB76">Acheter</a>
-                                                <a id="ajouterAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
+                                                <a id="ajouterUnAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-un-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
                                             </div>
                                         </div>
                                     </div>
@@ -99,9 +94,9 @@
     </section>
 
     <!-- Start: Marques -->
-    <section class="py-0">
-        <div class="container text-center py-0">
-            <div class="container d-flex flex-wrap justify-content-center align-items-center py-2">
+    <section class="px-4">
+        <div class=" text-center py-0">
+            <div class="px-4 d-flex flex-wrap justify-content-center align-items-center py-2">
                 {% for marque in marques_aleatoires %}
                     <a href="{{ marque.get_absolute_url }}" class="brand-container text-center m-3">
                         <img class="m-3 shadow rounded-2" width="65" height="65" src="{{ marque.image.url }}" alt="{{ marque.nom }}">
@@ -118,10 +113,10 @@
 
     <!-- Start: Blog -->
     <section class="py-5">
-        <div class="container">
+        <div class="px-4">
             <div class="text-white bg-primary border rounded border-primary d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5">
                 <div class="text-center text-lg-start py-3 py-lg-1">
-                    <h2 class="fw-bold mb-2">Subscribe to our newsletter</h2>
+                    <h2 class="fw-bold mb-2">Soucrivez pour ne plus rater aucune sortie!</h2>
                     <p class="mb-0">Le monde Otaku t'attend</p>
                 </div>
                 <form class="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post">
@@ -131,7 +126,7 @@
                         </label>
                     </div>
                     <div class="my-2 ">
-                        <button class="btn btn-secondary shadow ms-2" type="submit">Subscribe </button>
+                        <button class="btn btn-secondary shadow ms-2" type="submit">Souscrivez-vous </button>
                     </div>
                 </form>
             </div>
