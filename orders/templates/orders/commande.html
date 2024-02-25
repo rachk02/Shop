@@ -1,0 +1,35 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Confirmation de la commande
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card">
+                        <div class="card-body bg-light-subtle text-black">
+                            <h2 class="card-title">Confirmation de la commande</h2>
+                            <p class="card-text">
+                                Merci pour votre commande ! Votre commande a été passée avec succès.
+                            </p>
+                            <p class="card-text">
+                                Numéro de commande : {{ commande.id }}
+                            </p>
+                            <p class="card-text">
+                                Montant total : ${{ total }}
+                            </p>
+                            <p class="card-text">
+                                Nous allons traiter votre commande et vous fournirons bientôt plus de détails.
+                            </p>
+                            <a href="{% url 'shop:homepage' %}" class="btn btn-primary">Continuer vos achats</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

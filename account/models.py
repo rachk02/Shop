@@ -29,6 +29,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     date_naissance = models.DateField(null=True, blank=True)
     adresse = models.CharField(max_length=50, null=True, blank=True)
     ville = models.CharField(max_length=50, null=True, blank=True)
+    code_postal = models.CharField(max_length=50, null=True, blank=True)
     pays = models.CharField(max_length=50, null=True, blank=True)
     telephone = models.CharField(max_length=50, null=True, blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)

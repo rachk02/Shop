@@ -142,13 +142,13 @@
                                                     <span>, </span>
                                                     <a href="#">Engagement de confidentialité</a>
                                                     <span> & </span>
-                                                    <a href="#">Conditions de remboursements</a>
+                                                    <a href="#">Politique de remboursements</a>
                                                 </span>
                                             </label>
                                         </form>
                                         <div class="ref-row ref-checkout-buttons">
                                             <div class="ref-paypal-express-checkout-holder">
-                                                <a href="#">
+                                                <a href="{% url "orders:creer_commande" %}">
                                                     <div class="paypal-button paypal-button-gold button-demo-payment" style="background-color: white;">
                                                         <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 101 32" preserveAspectRatio="xMinYMin meet">
                                                             <path fill="#003087" d="M 12.237 2.8 L 4.437 2.8 C 3.937 2.8 3.437 3.2 3.337 3.7 L 0.237 23.7 C 0.137 24.1 0.437 24.4 0.837 24.4 L 4.537 24.4 C 5.037 24.4 5.537 24 5.637 23.5 L 6.437 18.1 C 6.537 17.6 6.937 17.2 7.537 17.2 L 10.037 17.2 C 15.137 17.2 18.137 14.7 18.937 9.8 C 19.237 7.7 18.937 6 17.937 4.8 C 16.837 3.5 14.837 2.8 12.237 2.8 Z M 13.137 10.1 C 12.737 12.9 10.537 12.9 8.537 12.9 L 7.337 12.9 L 8.137 7.7 C 8.137 7.4 8.437 7.2 8.737 7.2 L 9.237 7.2 C 10.637 7.2 11.937 7.2 12.637 8 C 13.137 8.4 13.337 9.1 13.137 10.1 Z"></path>
@@ -162,7 +162,7 @@
                                                 </a>
                                             </div>
                                             <div class="ref-button ref-standard-checkout-button">
-                                                <a href="#">
+                                                <a href="{% url "orders:creer_commande" %}">
                                                     Payer
                                                 </a>
                                             </div>

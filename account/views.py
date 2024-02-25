@@ -14,6 +14,7 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
 
+
 marques = Marque.objects.all()
 categories = Categorie.objects.all()
 m_slug_to_display = ['apple', 'samsung', 'asus', 'dell', 'sony']
