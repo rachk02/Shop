@@ -1,26 +1,46 @@
 from django.db import models
 from shop.models import Produit
 from account.models import Utilisateur
+import uuid
 
 
 # Create your models here.
 
 
 class Commande(models.Model):
-    utilisateur = models.ForeignKey(Utilisateur,
-                                    on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     creer = models.DateTimeField(auto_now_add=True)
     modifier = models.DateTimeField(auto_now_add=True)
     payer = models.BooleanField(default=False)
 
+    def nom(self):
+        return f'{self.utilisateur.nom}'
+
+    def prenom(self):
+        return f'{self.utilisateur.prenom}'
+
+    def generer_numero_commande(self):
+        partie_fixe = hex(self.id)[2:].zfill(4)
+
+        date_partie_variable = self.creer.strftime('%Y%m%d') if self.creer else '00000000'
+
+        if self.utilisateur:
+            prenom_partie_variable = self.utilisateur.prenom[0].upper()
+            nom_partie_variable = self.utilisateur.nom[-1].upper()
+        else:
+            prenom_partie_variable = 'X'
+            nom_partie_variable = 'X'
+
+        numero_commande_masque = f'CMD-{partie_fixe}-{date_partie_variable}-{prenom_partie_variable}{nom_partie_variable}'
+
+        return numero_commande_masque
+
     class Meta:
         ordering = ['-creer']
-        indexes = [
-            models.Index(fields=['-creer']),
-        ]
+        indexes = [models.Index(fields=['-creer'])]
 
     def __str__(self):
-        return f'Commande {self.id} - {self.utilisateur.email}'
+        return f'{self.generer_numero_commande()}'
 
     def cout_total(self):
         return sum(item.cout() for item in self.items.all())

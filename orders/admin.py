@@ -11,7 +11,7 @@ class CommandeItemInline(admin.TabularInline):
 
 
 class CommandeAdmin(admin.ModelAdmin):
-    list_display = ['id', 'utilisateur', 'creer', 'modifier', 'payer']
+    list_display = ['id', 'nom', 'prenom', 'creer', 'modifier', 'payer']
     list_filter = ['payer', 'creer', 'modifier']
     inlines = [CommandeItemInline]
 
