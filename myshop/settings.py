@@ -139,12 +139,5 @@ SESSION_COOKIE_AGE = 604800
 # Configuration d'Allauth
 # ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'id.antlidrl@gmail.com'
-EMAIL_HOST_PASSWORD = 'tubyebcrvrjfzmwm'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'rachk02@outlook.fr'
 
 AUTH_USER_MODEL = 'account.Utilisateur'
