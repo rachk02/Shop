@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture - Commande {{ commande.generer_numero_commande }}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="mt-4">Facture - Commande {{ commande.generer_numero_commande }}</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Informations du client:</h4>
+                        <p><strong>Nom:</strong> {{ commande.nom }}</p>
+                        <p><strong>Prenom:</strong> {{ commande.prenom }}</p>
+                        <p><strong>Email:</strong> {{ commande.email }}</p>
+                        <p><strong>Adresse:</strong> {{ commande.adresse }}, {{ commande.code_postal }} {{ commande.ville }}</p>
+                        <p><strong>Téléphone:</strong> {{ commande.telephone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Statut de paiement:</h4>
+                        {% if commande.payer %}
+                            <span class="badge badge-success">Payé</span>
+                        {% else %}
+                            <span class="badge badge-warning">En attente de paiement</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+                <h4>Produits commandés:</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix unitaire</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in commande.items.all %}
+                            <tr>
+                                <td>{{ item.produit.nom }}</td>
+                                <td>{{ item.prix }} fcfa</td>
+                                <td>{{ item.quantite }}</td>
+                                <td>{{ item.cout }} fcfa</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <p><strong>Montant total:</strong> {{ commande.cout_total }} fcfa</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

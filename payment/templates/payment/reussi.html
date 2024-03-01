@@ -1,0 +1,50 @@
+{% extends "shop/base.html" %}
+{% block title %}
+    Paiement reussi
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card text-center">
+                        <div class="card-body bg-light-subtle text-black shadow rounded-3">
+                            <!-- Smaller square checkmark icon -->
+                            <div class="success-icon">
+                                <span class="checkmark">&#10003;</span>
+                            </div>
+                            <p class="success-message">Paiement effectué avec succès</p>
+                            <div class="ref-back">
+                                <a href="{% url "shop:homepage" %}" class="float-right">
+                                    ← Continuez vos achats!
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Additional styles for the smaller square checkmark */
+        .success-icon {
+            width: 60px; /* Square side length */
+            height: 60px; /* Square side length */
+            background-color: #28a745; /* Green background */
+            border-radius: 50%; /* Rounded corners, adjust as needed */
+            padding: 10px; /* Adjust the padding */
+            margin: 0 auto 20px; /* Center the icon */
+        }
+
+        .checkmark {
+            color: #fff; /* White color for the checkmark */
+            font-size: 24px; /* Adjust the size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+    </style>
+{% endblock %}

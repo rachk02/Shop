@@ -2,12 +2,14 @@ from django.shortcuts import render, get_object_or_404
 from .models import Marque, Categorie, Produit, Promo
 import random
 from cart.forms import FormulaireAjout
+from .forms import FormulaireRA
 
 m_slug_to_display = ['apple', 'samsung', 'asus', 'dell', 'sony']
 marques_to_display = Marque.objects.filter(slug__in=m_slug_to_display)
 c_slug_to_display = ['ordinateurs', 'smartphones', 'tablettes', 'gaming', 'cinema']
 categories_to_display = Categorie.objects.filter(slug__in=c_slug_to_display)
 formulaire_ajout = FormulaireAjout()
+formulaire_recherche = FormulaireRA()
 
 
 def promo_clearer():
@@ -34,7 +36,8 @@ def homepage(request):
                    'produits': produits_aleatoires,
                    'marques_aleatoires': marques_aleatoires,
                    'formulaire_ajout': formulaire_ajout,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche})
 
 
 def marque_list(request):
@@ -46,7 +49,8 @@ def marque_list(request):
                    'categories': categories,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche})
 
 
 def categorie_list(request):
@@ -58,7 +62,8 @@ def categorie_list(request):
                    'marques': marques,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche})
 
 
 def produit_list(request, categorie_slug=None, marque_slug=None):
@@ -95,7 +100,8 @@ def produit_list(request, categorie_slug=None, marque_slug=None):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche})
 
 
 def produit_list_marque(request, marque_slug):
@@ -119,7 +125,8 @@ def produit_list_marque(request, marque_slug):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche})
 
 
 def produit_list_categorie(request, categorie_slug):
@@ -143,7 +150,8 @@ def produit_list_categorie(request, categorie_slug):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche})
 
 
 def produit_list_marque_categorie(request, marque_slug, categorie_slug):
@@ -169,7 +177,8 @@ def produit_list_marque_categorie(request, marque_slug, categorie_slug):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def produit_detail(request, id, slug):
@@ -187,4 +196,45 @@ def produit_detail(request, id, slug):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire_recherche': formulaire_recherche})
+
+
+def recherche_avancee(request):
+    categories = Categorie.objects.all()
+    marques = Marque.objects.all()
+
+    if request.method == 'POST':
+        formulaire = FormulaireRA(request.POST)
+        if formulaire.is_valid():
+            produits = Produit.objects.filter(disponible=True)
+
+            mot_cle = formulaire.cleaned_data.get('mot_cle')
+
+            if mot_cle:
+                produits = produits.filter(nom__icontains=mot_cle)
+
+            return render(request, 'shop/resultats.html', {
+                'categories': categories,
+                'marques': marques,
+                'produits': produits,
+                'marques_to_display': marques_to_display,
+                'categories_to_display': categories_to_display,
+                'formulaire_ajout': formulaire_ajout,
+                'utilisateur': request.user,
+                'formulaire': formulaire,
+                'mot_cle': mot_cle
+            })
+
+    else:
+        formulaire = FormulaireRA()
+
+    return render(request, 'shop/index.html', {
+        'categories': categories,
+        'marques': marques,
+        'marques_to_display': marques_to_display,
+        'categories_to_display': categories_to_display,
+        'formulaire_ajout': formulaire_ajout,
+        'utilisateur': request.user,
+        'formulaire': formulaire
+    })

@@ -29,9 +29,9 @@
                         </div>
                         <strong class="ref-price ref-on-sale">
                             {% if produit.promotion %}
-                                <s class="ref-original-price">${{ produit.prix }}</s>${{ produit.prix_promotionnel }}
+                                <s class="ref-original-price">{{ produit.prix }} fcfa</s>{{ produit.prix_promotionnel }} fcfa
                             {% else %}
-                                ${{ produit.prix }}
+                                {{ produit.prix }} fcfa
                             {% endif %}
                         </strong>
                         <span>
@@ -54,7 +54,6 @@
                                         </div>
                                     </form>
                                 </span>
-                                <a class="ref-button shadow" href="#" style="background-color: #8FDB76">Acheter</a>
                                 <a class="ref-button ajouter-au-panier-btn-produit shadow" data-produit-id="{{ produit.id }}" type="button" onclick="ajouterAuPan({{ produit.id }})">Ajouter au panier</a>
                                 <div class="form-check form-switch">
                                     <span ></span>

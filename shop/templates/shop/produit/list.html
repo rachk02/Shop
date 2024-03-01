@@ -44,11 +44,11 @@
                                                 </div>
                                                 {% if produit.promotion %}
                                                     <strong class="ref-price ref-on-sale">
-                                                        <s class="ref-original-price">${{ produit.prix }}</s>${{ produit.prix_promotionnel }}
+                                                        <s class="ref-original-price">{{ produit.prix }} fcfa</s>{{ produit.prix_promotionnel }} fcfa
                                                     </strong>
                                                 {% else %}
                                                     <strong class="ref-price">
-                                                        ${{ produit.prix }}
+                                                        {{ produit.prix }} fcfa
                                                     </strong>
                                                 {% endif %}
                                             </div>
@@ -60,7 +60,6 @@
                                                         {% csrf_token %}
                                                     </form>
                                                 </span>
-                                                <a class="ref-button preview-toggle shadow shadow-lg" href="#" style="background-color: #8FDB76">Acheter</a>
                                                 <a id="ajouterUnAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-un-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
                                             </div>
                                         </div>

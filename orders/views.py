@@ -1,9 +1,18 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from cart.cart import Panier
+from django.template.loader import render_to_string
 from .forms import FormulaireDeCC
 from .models import CommandeItem
+from django.conf import settings
+from django.http import HttpResponse
 from shop.models import Marque, Categorie
+from .models import Commande, CommandeItem
+from .forms import FormulaireDeCC
+from .tasks import commande_passer
+from django.urls import reverse
+import weasyprint
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 
@@ -39,15 +48,11 @@ def creer_commande(request):
 
             panier.effacer()
 
-            return render(request, 'orders/commande.html', {
-                'commande': commande,
-                'utilisateur': utilisateur,
-                'categories': categories,
-                'marques': marques,
-                'marques_to_display': marques_to_display,
-                'categories_to_display': categories_to_display,
-                'total': total
-            })
+            commande_passer.delay(commande.id)
+
+            request.session['id_commande'] = commande.id
+
+            return redirect(reverse('payment:processus_de_paiement'))
 
     else:
         formulaire = FormulaireDeCC()
@@ -61,3 +66,43 @@ def creer_commande(request):
         'marques_to_display': marques_to_display,
         'categories_to_display': categories_to_display
     })
+
+
+@staff_member_required
+def admin_commande_pdf(request, id_commande):
+    commande = get_object_or_404(Commande, id=id_commande)
+    html = render_to_string('orders/pdf.html',
+                            {'commande': commande})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=commande_{commande.generer_numero_commande()}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response,
+                                           stylesheets=[weasyprint.CSS(
+                                               settings.STATIC_ROOT / 'bootstrap/css/bootstrap.min.css')])
+    return response
+
+
+@login_required
+def commande_pdf(request, id_commande):
+    commande = get_object_or_404(Commande, id=id_commande)
+
+    if commande.utilisateur != request.user:
+        return HttpResponse("Unauthorized", status=401)
+
+    html = render_to_string('orders/pdf.html', {'commande': commande})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=commande_{commande.generer_numero_commande()}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response,
+                                           stylesheets=[weasyprint.CSS(
+                                               settings.STATIC_ROOT / 'bootstrap/css/bootstrap.min.css')])
+    return response
+
+
+def liste_commandes(request):
+    user = request.user
+    commandes = Commande.objects.filter(utilisateur=user).order_by('-creer')
+    return render(request, 'orders/liste_commandes.html', {'commandes': commandes})
+
+
+def commande_detail(request, id):
+    commande = get_object_or_404(Commande, id=id)
+    return render(request, 'orders/commande_detail.html', {'commande': commande})

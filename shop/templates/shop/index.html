@@ -59,11 +59,11 @@
                                                     </div>
                                                 {% if produit.promotion %}
                                                     <strong class="ref-price ref-on-sale">
-                                                        <s class="ref-original-price">${{ produit.prix }}</s>${{ produit.prix_promotionnel }}
+                                                        <s class="ref-original-price">{{ produit.prix }} fcfa</s>{{ produit.prix_promotionnel }} fcfa
                                                     </strong>
                                                 {% else %}
                                                     <strong class="ref-price ref-on-sale">
-                                                        ${{ produit.prix }}
+                                                        {{ produit.prix }} fcfa
                                                     </strong>
                                                 {% endif %}
                                             </div>
@@ -75,7 +75,6 @@
                                                         {% csrf_token %}
                                                     </form>
                                                 </span>
-                                                <a class="ref-button preview-toggle shadow shadow-lg" href="#" style="background-color: #8FDB76">Acheter</a>
                                                 <a id="ajouterUnAuPanierBtn-{{ produit.id }}" class="ref-button shadow ajouter-un-au-panier-btn shadow-lg" data-produit-id="{{ produit.id }}" type="submit">Ajouter au panier</a>
                                             </div>
                                         </div>
@@ -110,26 +109,4 @@
             </p>
         </div>
     </section><!-- End: Marques -->
-
-    <!-- Start: Blog -->
-    <section class="py-5">
-        <div class="px-4">
-            <div class="text-white bg-primary border rounded border-primary d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5">
-                <div class="text-center text-lg-start py-3 py-lg-1">
-                    <h2 class="fw-bold mb-2">Soucrivez pour ne plus rater aucune sortie!</h2>
-                    <p class="mb-0">Le monde Otaku t'attend</p>
-                </div>
-                <form class="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post">
-                    <div class="my-2">
-                        <label>
-                            <input class="border rounded-pill shadow-sm form-control" type="email" name="email" placeholder="Votre Email">
-                        </label>
-                    </div>
-                    <div class="my-2 ">
-                        <button class="btn btn-secondary shadow ms-2" type="submit">Souscrivez-vous </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section><!-- End: Blog -->
 {% endblock %}

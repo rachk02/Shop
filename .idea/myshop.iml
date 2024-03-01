@@ -27,8 +27,8 @@
     <orderEntry type="library" name="swiper" level="application" />
     <orderEntry type="library" name="toolkit" level="application" />
     <orderEntry type="library" name="jquery-3.6.4" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="toolkit" level="application" />
-    <orderEntry type="library" name="jquery-3.6.4" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

@@ -111,7 +111,12 @@ class Panier:
             self.sauvegarder()
 
     def get_prix_total(self):
-        return sum(Decimal(item['prix']) * item['quantite'] for item in self.panier.values())
+        return sum(float(item['prix']) * item['quantite'] for item in self.panier.values())
+
+    def frais(self):
+        x = 0.01
+        frais = self.get_prix_total() * x
+        return frais
 
     def effacer(self):
         del self.session[settings.CART_SESSION_ID]

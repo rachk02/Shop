@@ -17,10 +17,78 @@
                                 Merci pour votre commande ! Votre commande a été passée avec succès.
                             </p>
                             <p class="card-text">
-                                Numéro de commande : {{ commande.id }}
+                                Numéro de commande : {{ commande.generer_numero_commande }}
                             </p>
+                            <section class="py-5">
+                                <div class="container py-5">
+                                    <div class="row mx-auto">
+                                        <div class="col">
+                                            <div data-reflow-type="shopping-cart">
+                                                <div class="reflow-shopping-cart" style="display: block;">
+                                                    <div class="ref-cart" style="display: block;">
+                                                        <div class="ref-th">
+                                                            <div class="ref-product-col">Produit</div>
+                                                            <div class="ref-price-col">Prix</div>
+                                                            <div class="ref-quantity-col">Quantite</div>
+                                                            <div class="ref-total-col">Total</div>
+                                                        </div>
+                                                        <div class="ref-cart-table">
+                                                            {% for item in panier %}
+                                                                {% with produit=item.produit %}
+                                                                    <div class="ref-product">
+                                                                        <div class="ref-product-col">
+                                                                            <div class="ref-product-wrapper">
+                                                                                <div class="ref-product-data">
+                                                                                    <div class="ref-product-info">
+                                                                                        <div>
+                                                                                            <div class="ref-product-name">{{ produit.nom }}</div>
+                                                                                        </div>
+                                                                                        <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} fcfa</div>
+                                                                                    </div>
+                                                                                    <div class="ref-product-controls ref-mobile-product-controls">
+                                                                                        <div class="ref-product-quantity">
+                                                                                            <div class="ref-quantity-container">
+                                                                                                <div class="ref-quantity-widget">
+                                                                                                    <span>
+                                                                                                        {{ item.quantite }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ref-price-col">
+                                                                            <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} fcfa{% else %}{{ produit.prix }} fcfa{% endif %}</div>
+                                                                        </div>
+                                                                        <div class="ref-quantity-col">
+                                                                            <div class="ref-product-quantity">
+                                                                                <div class="ref-quantity-container">
+                                                                                    <span>
+                                                                                        {{ item.quantite }}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ref-total-col">
+                                                                            <div class="ref-product-total">
+                                                                                <div class="ref-product-total-sum">{{ item.prix_total }} fcfa</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endwith %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                             <p class="card-text">
-                                Montant total : ${{ total }}
+                                Montant total : {{ total }} fcfa
                             </p>
                             <p class="card-text">
                                 Nous allons traiter votre commande et vous fournirons bientôt plus de détails.

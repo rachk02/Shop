@@ -1,0 +1,58 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Paiement annuler
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card text-center">
+                    <div class="card-body bg-light-subtle text-black shadow rounded-3">
+                        <div class="error-icon">
+                            <span class="icon cross">&#10007;</span>
+                        </div>
+                        <p class="error-message">Échec du paiement</p>
+
+                        <div class="ref-back">
+                            <a href="{% url "shop:homepage" %}" class="float-right">
+                                ← Continuez vos achats!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Styles for the icon and message */
+    .icon {
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: #fff; /* White color for both checkmark and cross */
+    }
+
+    /* Styles for the error icon (red circle with white cross) */
+    .error-icon {
+        width: 60px; /* Circle diameter */
+        height: 60px; /* Circle diameter */
+        background-color: #dc3545; /* Red background */
+        border-radius: 50%; /* Rounded corners for circle */
+        padding: 10px; /* Adjust the padding */
+        margin: 0 auto 20px; /* Center the icon */
+    }
+
+    /* Styles for the white cross inside the red circle */
+    .error-icon .cross {
+        color: #fff; /* White color for the cross */
+    }
+</style>
+{% endblock %}

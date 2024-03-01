@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'account.apps.AccountConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -138,6 +140,18 @@ SESSION_COOKIE_AGE = 604800
 
 # Configuration d'Allauth
 # ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'id.antlidrl@gmail.com'
+EMAIL_HOST_PASSWORD = 'tubyebcrvrjfzmwm'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'rachk02@outlook.fr'
 
 AUTH_USER_MODEL = 'account.Utilisateur'
+
+# Stripe API Keys
+STRIPE_PUBLIC_KEY = 'pk_test_51OoClRG3WiqBlBOW1S4gWaF79Qa2wqImM0eWGFz3m8lHdDaUmyj0J4qBXlPBASNUgfNCpVpjHsOOcRuQCB5INYph00bl6gZmSL'
+STRIPE_SECRET_KEY = 'sk_test_51OoClRG3WiqBlBOWj2LsLa3pwp5VwJIufOpQUUnSk7CvkBbCRkoDjbPRHIzkm5egSYLDp9aqfdyZ0TSrvmCwZ36l00uDCBv8Xs'
+STRIPE_API_VERSION = '2023-10-16'
+STRIPE_WEBHOOK_SECRET = 'whsec_517673b46fb9c91dfd116286b713e841d17b7d882cc3bf210e7922531376c1ab'

@@ -34,3 +34,17 @@
     object-fit: cover;
 }
 
+.custom-table {
+    background-color: white;
+    color: black;
+}
+
+.custom-badge-success {
+        background-color: green;
+        color: white;
+    }
+
+    .custom-badge-danger {
+        background-color: red;
+        color: white;
+    }

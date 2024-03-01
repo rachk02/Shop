@@ -1,0 +1,49 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Vos Commandes
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    <h2>Vos Commandes</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Numéro de Commande</th>
+                                <th>Date de Création</th>
+                                <th>Statut de Paiement</th>
+                                <th>Montant de la Commande</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for commande in commandes %}
+                                <tr>
+                                    <td>{{ commande.generer_numero_commande }}</td>
+                                    <td>{{ commande.creer|date:"F d, Y H:i" }}</td>
+                                    <td>
+                                        {% if commande.payer %}
+                                            <span class="badge badge-success">Payé</span>
+                                        {% else %}
+                                            <span class="badge badge-warning">En attente de paiement</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ commande.cout_total|floatformat:2 }} fcfa</td>
+                                    <td>
+                                        <a href="{% url 'orders:commande_detail' id=commande.id %}" class="btn btn-primary btn-sm">Voir Détails</a>
+                                        <a href="{% url 'orders:commande_pdf' id_commande=commande.id %}" class="btn btn-secondary btn-sm">Générer PDF</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

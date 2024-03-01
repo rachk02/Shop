@@ -1,7 +1,7 @@
 from django.db import models
 from shop.models import Produit
 from account.models import Utilisateur
-import uuid
+from django.conf import settings
 
 
 # Create your models here.
@@ -12,12 +12,39 @@ class Commande(models.Model):
     creer = models.DateTimeField(auto_now_add=True)
     modifier = models.DateTimeField(auto_now_add=True)
     payer = models.BooleanField(default=False)
+    stripe_id = models.CharField(max_length=250, blank=True)
 
     def nom(self):
         return f'{self.utilisateur.nom}'
 
     def prenom(self):
         return f'{self.utilisateur.prenom}'
+
+    def email(self):
+        return f'{self.utilisateur.email}'
+
+    def adresse(self):
+        return f'{self.utilisateur.adresse}'
+
+    def code_postal(self):
+        return f'{self.utilisateur.code_postal}'
+
+    def ville(self):
+        return f'{self.utilisateur.ville}'
+
+    def telephone(self):
+        return f'{self.utilisateur.telephone}'
+
+    def get_stripe_url(self):
+        if not self.stripe_id:
+            return ''
+        if '_test_' in settings.STRIPE_SECRET_KEY:
+
+            path = '/test/'
+        else:
+
+            path = '/'
+        return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
 
     def generer_numero_commande(self):
         partie_fixe = hex(self.id)[2:].zfill(4)
@@ -43,7 +70,14 @@ class Commande(models.Model):
         return f'{self.generer_numero_commande()}'
 
     def cout_total(self):
-        return sum(item.cout() for item in self.items.all())
+        total = f"{sum(item.cout() for item in self.items.all()):,.2f}"
+        return float(total.replace(',', ''))
+
+    def frais(self):
+        x = 0.01
+        frais = f"{self.cout_total() * x:,.2f}"
+        return float(frais.replace(',', ''))
+
 
 
 class CommandeItem(models.Model):
@@ -58,4 +92,7 @@ class CommandeItem(models.Model):
         return f'{self.quantite} x {self.produit.nom}'
 
     def cout(self):
+        return self.quantite * self.prix
+
+    def ct(self):
         return self.quantite * self.prix

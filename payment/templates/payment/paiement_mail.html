@@ -1,0 +1,45 @@
+{% load static %}
+{% load tz %}
+
+{% get_current_timezone as TIME_ZONE %}
+{% localtime on %}
+
+{% now "H" as current_hour %}
+
+{% if current_hour|time:'H' >= 4 and current_hour|time:'H' < 12 %}
+    Bonjour {{ username }},<br>
+{% else %}
+    Bonsoir {{ username }},<br>
+{% endif %}
+<br>
+
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body bg-white text-black shadow rounded-3">
+                        <h2 class="card-title">Confirmation de paiement</h2>
+                        <p class="card-text">
+                            Votre paiement a été effectué avec succès.
+                        </p>
+                        <p class="card-text">
+                            Numéro de commande : {{ commande.generer_numero_commande }}
+                        </p>
+                        {% for item in commande.items.all %}
+                            <strong>{{ item.produit.nom }}</strong><br>
+                            <span>Prix unitaire: {% if item.produit.promotion %}{{ item.produit.prix_promotionnel }} fcfa{% else %}{{ item.produit.prix }} fcfa{% endif %}</span><br>
+                            <span>Quantité: {{ item.quantite }}</span><br>
+                            <span>Total: {{ item.ct }} fcfa</span>
+                            <hr>
+                        {% endfor %}
+                        <p class="card-text">
+                            Montant total : {{ commande.cout_total }} fcfa
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endlocaltime %}

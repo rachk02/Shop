@@ -68,10 +68,13 @@
                         <li class="nav-item"></li>
                     </ul>
                 </div>
-
             </div>
         <div class="d-flex flex-row">
-                <span class="bs-icon-sm bs-icon-circle bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon">
+                <form id="searchForm" class="form-control" style="height: 20px; max-width: 170px; border: none; background-color: inherit" method="post" action="{% url 'shop:recherche_avancee' %}">
+                    {% csrf_token %}
+                    {{ formulaire.mot_cle }}
+                </form>
+                <span id="search-btn" class="bs-icon-sm bs-icon-circle bs-icon-white shadow d-flex justify-content-center align-items-center me-2 bs-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 16 16" class="bi bi-search">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
                     </svg>
@@ -107,7 +110,7 @@
                         {% if utilisateur.is_authenticated %}
                             <a class="dropdown-item" href="{% url "account:profile_edit" %}">Profil</a>
                             <a class="dropdown-item" href="#">Notifications</a>
-                            <a class="dropdown-item" href="#">Commandes</a>
+                            <a class="dropdown-item" href="{% url "orders:liste_commandes" %}">Commandes</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url "account:deconnexion" %}">Se déconnecter</a>
                         {% else %}
@@ -212,9 +215,11 @@
     <script src="{% static "js/Quantity-Widgets.js" %}"></script>
     <script src="{% static "js/creerLaCommande.js" %}"></script>
     <script src="{% static "js/Switch.js" %}"></script>
+    <script src="{% static "js/paymentControler.js" %}"></script>
     <script src="{% static "js/carouselAuto.js" %}"></script>
     <script src="{% static "js/majQuantiteBtn.js" %}"></script>
     <script src="{% static "js/retirerUnPinP.js" %}"></script>
+    <script src="{% static "js/searchControler.js" %}"></script>
     <script src="{% static "js/ajouterUnProduit.js" %}"></script>
     <script src="{% static "js/AjouterAuPanierProduitDetail.js" %}"></script>
     <script src="{% static "js/Item-Quantity-Controler.js" %}"></script>

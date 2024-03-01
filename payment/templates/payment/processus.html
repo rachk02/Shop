@@ -1,0 +1,160 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Payer votre commande
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row mx-auto">
+                <div class="col">
+                    <div data-reflow-type="shopping-cart">
+                        <div class="reflow-shopping-cart" style="display: block;">
+                            <div class="ref-loading-overlay"></div>
+                            <div class="ref-message" style="display: none;"></div>
+                            <div class="ref-cart" style="display: block;">
+                                <div class="ref-heading">Details</div>
+                                <div class="ref-th">
+                                    <div class="ref-product-col">Produit</div>
+                                    <div class="ref-price-col">Prix</div>
+                                    <div class="ref-quantity-col">Quantite</div>
+                                    <div class="ref-total-col">Total</div>
+                                </div>
+                                <div class="ref-cart-table">
+                                    {% for item in commande.items.all %}
+                                        {% with produit=item.produit %}
+                                            <div class="ref-product">
+                                                <div class="ref-product-col">
+                                                    <div class="ref-product-wrapper">
+                                                        <a href="{{ produit.get_absolute_url }}">
+                                                            <img class="ref-product-photo" src="{{ produit.image.url }}" alt="{{ produit.slug }}" />
+                                                        </a>
+                                                        <div class="ref-product-data">
+                                                            <div class="ref-product-info">
+                                                                <div>
+                                                                    <div class="ref-product-name">{{ produit.nom }}</div>
+                                                                    <div class="ref-product-category"></div>
+                                                                    <div class="ref-product-variants"></div>
+                                                                    <div class="ref-product-personalization-holder"></div>
+                                                                </div>
+                                                                <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} fcfa</div>
+                                                            </div>
+                                                            <div class="ref-product-controls ref-mobile-product-controls">
+                                                                <div class="ref-product-quantity">
+                                                                    <div class="ref-quantity-container">
+                                                                        <div class="ref-quantity-widget">
+                                                                            <span>
+                                                                                <div>
+                                                                                    <div>
+                                                                                    </div>
+                                                                                    {{ item.quantite }}
+                                                                                    <div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="ref-product-qty-message"></div>
+                                                                </div>
+                                                                <div class="ref-product-remove">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
+                                                                        <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ref-price-col">
+                                                    <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} fcfa{% else %}{{ produit.prix }} fcfa{% endif %}</div>
+                                                </div>
+                                                <div class="ref-quantity-col">
+                                                    <div class="ref-product-quantity">
+                                                        <div class="ref-quantity-container">
+                                                            <span>
+                                                                <div>
+                                                                    <div>
+                                                                    </div>
+                                                                    {{ item.quantite }}
+                                                                    <div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="d-flex justify-content-end col">
+                                                            </div>
+                                                            <div class="d-flex justify-content-start py-2 col">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ref-total-col">
+                                                    <div class="ref-product-total">
+                                                        <div class="ref-product-total-sum">{{ item.cout }} fcfa</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    {% endfor %}
+                                </div>
+                                <div class="ref-footer">
+                                    <div class="ref-totals">
+                                    </div>
+                                </div>
+                                <div class="ref-total">
+                                    <div class="ref-row">
+                                        <span>Somme totale</span>
+                                        <span>{{ commande.cout_total }} fcfa</span>
+                                    </div>
+                                </div>
+                                <div class="ref-shipping" style="display: block;">
+                                    <div class="ref-row">
+                                        <span>Livraison</span>
+                                        <span>{{ commande.frais }} fcfa</span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="ref-total">
+                                    <div class="ref-row">
+                                        <span>Total</span>
+                                        <span>{{ commande.cout_total|add:commande.frais }} fcfa</span>
+                                    </div>
+                                    <div class="ref-total-note"></div>
+                                </div>
+                                <form class="ref-accept-terms" style="display: block;">
+                                    <label>
+                                        <span class="ref-terms-agreement-text">
+                                            <span></span>
+                                            <a href="#"></a>
+                                            <span></span>
+                                            <a href="#"></a>
+                                            <span></span>
+                                            <a href="#"></a>
+                                        </span>
+                                    </label>
+                                </form>
+                                <form id="paymentForm" method="post">
+                                    {% csrf_token %}
+                                    <a id="payment-btn">
+                                        <div class="ref-button ref-standard-checkout-button float-end">
+                                            Payer
+                                        </div>
+                                    </a>
+                                </form>
+                                <div class="ref-row ref-checkout-buttons">
+                                    <a href="">
+                                        <div class="ref-paypal-express-checkout-holder">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
