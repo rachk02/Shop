@@ -1,0 +1,20 @@
+{
+    "python.testing.pytestArgs": [
+        "myshop"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "database": "ecom_db",
+            "username": "kento",
+            "name": "ecom_db",
+            "group": "dk90gf"
+        }
+    ]
+}
