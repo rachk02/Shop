@@ -1,5 +1,6 @@
 {% extends "shop/base.html" %}
 {% load static %}
+{% load socialaccount %}
 
 {% block title %}
     Connexion
@@ -34,12 +35,31 @@
                                 <div class="mb-3 shadow rounded-5">
                                     <button class="btn btn-primary shadow d-block w-100" type="submit">connexion</button>
                                 </div>
-                                <a href="{% url "account:mdp_reinit_dem" %}">
-                                    <p style="color: darkgrey">Mot de passe oublié?</p>
-                                </a>
-                                <a href="{% url "account:compte_creation" %}">
-                                    <p style="color: darkgrey">Créer un compte?</p>
-                                </a>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <a href="{% url 'account:mdp_reinit_dem' %}">
+                                        <p style="display: inline; color: darkgrey; margin-right: 10px;">Mot de passe oublié ?</p>
+                                    </a>
+                                    <a href="{% url 'account:compte_creation' %}">
+                                        <p style="display: inline; color: #4285F4;">Créer un compte </p>
+                                    </a>
+                                </div>
+                                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                                    <div style="flex-grow: 1; height: 1px; background-color: lightgrey;"></div>
+                                    <span style="margin: 0 10px; color: grey;">ou</span>
+                                    <div style="flex-grow: 1; height: 1px; background-color: lightgrey;"></div>
+                                </div>
+                                <div class="mb-3 shadow rounded-3" style="border: 1px solid darkgrey; padding: 0.375rem 0.75rem; display: flex; align-items: center;">
+                                    <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" style="vertical-align: middle; margin-right: 0.5rem; height: 20px;">
+                                    <a href="{% provider_login_url 'google' %}" style="color: darkgrey; text-decoration: none;">
+                                        Continuez avec Google
+                                    </a>
+                                </div>
+                                <div class="mb-3 shadow rounded-3" style="border: 1px solid darkgrey; padding: 0.375rem 0.75rem; display: flex; align-items: center;">
+                                    <img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="Github" style="vertical-align: middle; margin-right: 0.5rem; height: 20px;">
+                                    <a href="{% provider_login_url 'github' %}" style="color: darkgrey; text-decoration: none;">
+                                        Continuez avec Github
+                                    </a>
+                                </div>
                             </form>
                         </div>
                     </div>

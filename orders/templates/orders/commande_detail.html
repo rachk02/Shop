@@ -10,53 +10,52 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col">
-                    <h2>Détails de la Commande {{ commande.generer_numero_commande }}</h2>
+                    <h2>Détails de la Commande</h2>
                     <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4>Commande n°: {{ commande.generer_numero_commande }}</h4>
+                        {% if commande.payer %}
+                            <span class="badge badge-success ml-2" style="background-color:rgb(32, 204, 32)">Payé</span>
+                        {% else %}
+                            <span class="badge badge-warning ml-2" style="background-color: rgb(169, 169, 169)">En attente</span>
+                        {% endif %}
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <h4>Informations du client:</h4>
                             <p><strong>Nom:</strong> {{ commande.nom }}</p>
                             <p><strong>Prenom:</strong> {{ commande.prenom }}</p>
                             <p><strong>Email:</strong> {{ commande.email }}</p>
-                            <p><strong>Adresse:</strong> {{ commande.adresse }}, {{ commande.code_postal }} {{ commande.ville }}</p>
+                            <p><strong>Adresse:</strong> {{ commande.adresse }}, {{ commande.ville }}</p>
                             <p><strong>Téléphone:</strong> {{ commande.telephone }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Statut de paiement:</h4>
-                            {% if commande.payer %}
-                                <span class="badge badge-success">Payé</span>
-                            {% else %}
-                                <span class="badge badge-warning">En attente de paiement</span>
-                                {% if not commande.payer %}
-                                    <a href="{% url 'payment:paiement_unique' id_commande=commande.id %}" class="btn btn-primary btn-sm">Payer Maintenant</a>
-                                {% endif %}
-                            {% endif %}
                         </div>
                     </div>
                     <hr>
-                    <h4>Produits commandés:</h4>
-                    <table class="table table-bordered custom-table" style="background-color: white; color: black;">
-                        <thead>
-                            <tr>
-                                <th>Produit</th>
-                                <th>Prix unitaire</th>
-                                <th>Quantité</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in commande.items.all %}
-                                <tr>
-                                    <td>{{ item.produit.nom }}</td>
-                                    <td>{{ item.prix }} fcfa</td>
-                                    <td>{{ item.quantite }}</td>
-                                    <td>{{ item.cout }} fcfa</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <hr>
-                    <p><strong>Montant total:</strong> {{ commande.cout_total }} fcfa</p>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2>Liste des produits</h2>
+                    </div>
+                    <!-- En-têtes -->
+                    <div class="d-flex justify-content-between border-bottom pb-2">
+                        <div class="text-center mb-2" style="width: 25%;"><h5>Produit</h5></div>
+                        <div class="text-center mb-2" style="width: 25%;"><h5>Prix unitaire</h5></div>
+                        <div class="text-center mb-2" style="width: 25%;"><h5>Quantité</h5></div>
+                        <div class="text-center mb-2" style="width: 25%;"><h5>Total</h5></div>
+                    </div>
+                    <!-- contenu -->
+                    {% for item in commande.items.all %}
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <div class="text-center" style="width: 25%;">{{ item.produit.nom }}</div>
+                            <div class="text-center" style="width: 25%;">{{ item.prix|floatformat:2 }}</div>
+                            <div class="text-center" style="width: 25%;">{{ item.quantite }}</div>
+                            <div class="text-center" style="width: 25%;">{{ item.cout|floatformat:2 }} fcfa</div>
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <h2>Montant total: {{ commande.cout_total }} fcfa</h2> 
+                        {% if not commande.payer %}
+                            <a href="{% url 'payment:paiement_unique' id_commande=commande.id %}" class="btn btn-primary btn-sm ml-2">Payer maintenant</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

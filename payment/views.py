@@ -5,6 +5,7 @@ from orders.models import Commande
 from decimal import Decimal
 from shop.models import Marque, Categorie
 import logging
+from shop.forms import FormulaireRA
 
 # Create your views here.
 
@@ -16,6 +17,7 @@ m_slug_to_display = ['apple', 'samsung', 'asus', 'dell', 'sony']
 marques_to_display = Marque.objects.filter(slug__in=m_slug_to_display)
 c_slug_to_display = ['ordinateurs', 'smartphones', 'tablettes', 'gaming', 'cinema']
 categories_to_display = Categorie.objects.filter(slug__in=c_slug_to_display)
+formulaire_recherche = FormulaireRA()
 
 
 def paiement_unique(request, id_commande):
@@ -64,7 +66,8 @@ def paiement_unique(request, id_commande):
             'categories': categories,
             'marques': marques,
             'marques_to_display': marques_to_display,
-            'categories_to_display': categories_to_display
+            'categories_to_display': categories_to_display,
+            'formulaire': formulaire_recherche,
         })
 
 
@@ -115,7 +118,8 @@ def processus_de_paiement(request):
             'categories': categories,
             'marques': marques,
             'marques_to_display': marques_to_display,
-            'categories_to_display': categories_to_display
+            'categories_to_display': categories_to_display,
+            'formulaire': formulaire_recherche,
         })
 
 
@@ -126,6 +130,7 @@ def paiement_reussi(request):
         'marques_to_display': marques_to_display,
         'categories_to_display': categories_to_display,
         'utilisateur': request.user,
+        'formulaire': formulaire_recherche,
     })
 
 
@@ -136,4 +141,5 @@ def paiement_annuler(request):
         'marques_to_display': marques_to_display,
         'categories_to_display': categories_to_display,
         'utilisateur': request.user,
+        'formulaire': formulaire_recherche,
     })

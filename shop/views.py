@@ -178,7 +178,7 @@ def produit_list_marque_categorie(request, marque_slug, categorie_slug):
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche})
+                   'formulaire': formulaire_recherche})
 
 
 def produit_detail(request, id, slug):
@@ -197,7 +197,7 @@ def produit_detail(request, id, slug):
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche})
+                   'formulaire': formulaire_recherche})
 
 
 def recherche_avancee(request):

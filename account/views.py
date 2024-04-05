@@ -12,6 +12,10 @@ from .models import Utilisateur
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from .tasks import confirmation
+from shop.forms import FormulaireRA
 
 
 
@@ -21,6 +25,7 @@ m_slug_to_display = ['apple', 'samsung', 'asus', 'dell', 'sony']
 marques_to_display = Marque.objects.filter(slug__in=m_slug_to_display)
 c_slug_to_display = ['ordinateurs', 'smartphones', 'tablettes', 'gaming', 'cinema']
 categories_to_display = Categorie.objects.filter(slug__in=c_slug_to_display)
+formulaire_recherche = FormulaireRA()
 
 
 def connexion(request):
@@ -49,7 +54,9 @@ def connexion(request):
                    'marques': marques,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche,
+                   })
 
 
 @login_required
@@ -92,7 +99,9 @@ def mdp_change(request):
                    'marques': marques,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche,
+                   })
 
 
 def mdp_reinit_dem(request):
@@ -113,7 +122,9 @@ def mdp_reinit_dem(request):
 
     return render(request, 'account/mdp_re-init_dem.html',
                   {'formulaire': formulaire,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche,
+                   })
 
 
 def mdp_reinit(request, uid, token):
@@ -146,7 +157,10 @@ def mdp_reinit(request, uid, token):
         lien = reset_link(utilisateur)
 
         return render(request, 'account/mdp_re-init.html',
-                      {'formulaire': formulaire, 'utilisateur': request.user, 'lien': lien})
+                      {'formulaire_reinit': formulaire,
+                       'utilisateur': request.user,
+                       'lien': lien,
+                       'formulaire': formulaire_recherche,})
     else:
         messages.error(request, 'Le lien de réinitialisation du mot de passe est invalide ou a expiré.')
         return redirect('shop:homepage')
@@ -159,20 +173,60 @@ def compte_creation(request):
             utilisateur = formulaire.save(commit=False)
             utilisateur.set_password(formulaire.cleaned_data['mdp'])
             utilisateur.save()
-            login(request, utilisateur)
-            messages.success(request, 'Votre compte a été créé avec succès. Bienvenue !')
+            
+    
+            uid = urlsafe_base64_encode(force_bytes(utilisateur.pk))
+            token = default_token_generator.make_token(utilisateur)
+            
+            lien_confirmation = reverse(
+                'account:compte_activation',
+                kwargs={'uidb64': uid, 'token': token}
+            )
+            lien_complet = request.build_absolute_uri(lien_confirmation)
+            
+            confirmation.delay(utilisateur.id, lien_complet)
+            
+            messages.success(request, 'Un email de confirmation vous a été envoyé. Veuillez vérifier votre boîte de réception.')
             return redirect('shop:homepage')
     else:
         formulaire = FormulaireEnregistrement()
 
     return render(request, 'account/compte_creation.html',
-                  {'formulaire': formulaire,
+                  {'formulaire_create': formulaire,
                    'categories': categories,
                    'marques': marques,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche,
+                   })
 
+def compte_activation(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        utilisateur = Utilisateur.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, Utilisateur.DoesNotExist):
+        utilisateur = None
+        
+    if utilisateur is not None and default_token_generator.check_token(utilisateur, token):
+        utilisateur.is_active = True
+        utilisateur.save()
+        login(request, utilisateur)
+        return redirect('account:activation_reussi')
+    else:
+        return HttpResponse("Le lien d'activation est invalide ou a expiré.")
+
+def activation_reussi(request):
+    redirect_url = request.build_absolute_uri('shop:homepage')
+    return render(request, 'account/activation_reussi.html',
+                  {'redirect_url': redirect_url,
+                   'categories': categories,
+                   'marques': marques,
+                   'marques_to_display': marques_to_display,
+                   'categories_to_display': categories_to_display,
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche,
+                   })
 
 @login_required
 def profile_edit(request):
@@ -186,9 +240,10 @@ def profile_edit(request):
         formulaire = ProfileFormulaire(instance=request.user)
 
     return render(request, 'account/profile_edit.html',
-                  {'formulaire': formulaire,
+                  {'formulaire_edit': formulaire,
                    'categories': categories,
                    'marques': marques,
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
-                   'utilisateur': request.user})
+                   'utilisateur': request.user,
+                   'formulaire': formulaire_recherche,})

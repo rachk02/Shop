@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'allauth',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'shop' / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -155,3 +160,45 @@ STRIPE_PUBLIC_KEY = 'pk_test_51OoClRG3WiqBlBOW1S4gWaF79Qa2wqImM0eWGFz3m8lHdDaUmy
 STRIPE_SECRET_KEY = 'sk_test_51OoClRG3WiqBlBOWj2LsLa3pwp5VwJIufOpQUUnSk7CvkBbCRkoDjbPRHIzkm5egSYLDp9aqfdyZ0TSrvmCwZ36l00uDCBv8Xs'
 STRIPE_API_VERSION = '2023-10-16'
 STRIPE_WEBHOOK_SECRET = 'whsec_517673b46fb9c91dfd116286b713e841d17b7d882cc3bf210e7922531376c1ab'
+
+AUTHENTICATION_BACKENDS = [
+'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+SOCIAL_ACCOUNT_PROVIDERS = {}
+
+# Utilisation de l'email pour l'authentification (à la place du nom d'utilisateur)
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False     # Il est important de désactiver username
+
+# Facultatif : Permet de se connecter en utilisant le minuscule ou majuscule de l'email indifféremment
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'   # Pour exiger une vérification d'email
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1 # Nombre de jours avant l'expiration du lien de vérification par email
+ACCOUNT_RATE_LIMITS = {
+    'login_failed': '5/m'  # 5 tentatives max par minute
+}
+
+# Utiliser l'e-mail comme paramètre principal pour l'authentification au lieu de l'username
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+
+# Nom du champ utilisé pour connecter l'utilisateur
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+# Configuration du processus de déconnexion
+ACCOUNT_LOGOUT_ON_GET = True
+
+# Set to False if you want to disable creation of User accounts upon new social account connection
+SOCIALACCOUNT_AUTO_SIGNUP = False  
+
+# Set to True to link social accounts with existing user accounts during login 
+SOCIALACCOUNT_AUTO_LINK_SOCIAL_ACCOUNT = True
+
+# Recaptcha(v2)
+RECAPTCHA_PUBLIC_KEY = '6LdqxK0pAAAAACc0yfxvYCYaHBErBbsRw3rOCul-'
+RECAPTCHA_PRIVATE_KEY = '6LdqxK0pAAAAAEf5UqF9omC0qm38686as8KsXfJZ'

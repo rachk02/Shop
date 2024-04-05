@@ -1,5 +1,7 @@
 from django import forms
 from .models import Utilisateur
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 
 class FormulaireDeConnexion(forms.Form):
@@ -47,7 +49,10 @@ class FormulaireEnregistrement(forms.ModelForm):
     mdp_2 = forms.CharField(label='Confirmer le mot de passe',
                             widget=forms.PasswordInput(
                                 attrs={'class': 'form-control', 'placeholder': 'Confirmer mdp'}))
-
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(
+        api_params={'hl': 'cl', 'onload': 'onLoadFunc'}
+    ))
+    
     class Meta:
         model = Utilisateur
         fields = ['nom', 'prenom', 'email', 'date_naissance', 'image']

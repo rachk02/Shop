@@ -18,9 +18,9 @@
         </div>
     </div>
 
-    <section class="px-4 py-4">
+    <section class="px-5 py-4">
         <!-- Start: Produit -->
-        <div class="container py-4">
+        <div class="px-5 py-4">
             <div class="row mb-4 mb-lg-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h2 class="fw-bold"></h2>
@@ -85,15 +85,20 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <p class="mb-4 text-center mx-auto" style="font-size: 1.0rem;">
-                <a data-bss-hover-animate="pulse" href="{% url "shop:produit_list" %}">voir plus</a>
-            </p>
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                <div style="flex-grow: 1; height: 1px; background-color: lightgrey;"></div>
+                <span style="margin: 0 10px; color: grey;">
+                    <p class="mb-4 text-center mx-auto" style="font-size: 1.0rem;">
+                        <a data-bss-hover-animate="pulse" href="{% url "shop:produit_list" %}">voir plus</a>
+                    </p>
+                </span>
+                <div style="flex-grow: 1; height: 1px; background-color: lightgrey;"></div>
+            </div>
         </div><!-- End: Produit -->
     </section>
 
     <!-- Start: Marques -->
-    <section class="px-4">
+    <section class="px-5">
         <div class=" text-center py-0">
             <div class="px-4 d-flex flex-wrap justify-content-center align-items-center py-2">
                 {% for marque in marques_aleatoires %}
@@ -103,10 +108,15 @@
                     </a>
                 {% endfor %}
             </div>
-            <hr>
-            <p class="mb-4" style="font-size: 1.1rem;">
-                <a data-bss-hover-animate="pulse" href="{% url "shop:marque_list" %}">voir plus</a>
-            </p>
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                <div style="flex-grow: 1; height: 1px; background-color: lightgrey;"></div>
+                <span style="margin: 0 10px; color: grey;">
+                    <p class="mb-4" style="font-size: 1.1rem;">
+                        <a data-bss-hover-animate="pulse" href="{% url 'shop:marque_list' %}">voir plus</a>
+                    </p>
+                </span>
+                <div style="flex-grow: 1; height: 1px; background-color: lightgrey;"></div>
+            </div>
         </div>
     </section><!-- End: Marques -->
 {% endblock %}

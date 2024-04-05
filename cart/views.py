@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from shop.models import Produit, Marque, Categorie
 from .cart import Panier
 from .forms import FormulaireAjout, FormulaireMajQuantite, FormulaireSimple
+from shop.forms import FormulaireRA
 
 # Create your views here.
 
@@ -13,6 +14,7 @@ m_slug_to_display = ['apple', 'samsung', 'asus', 'dell', 'sony']
 marques_to_display = Marque.objects.filter(slug__in=m_slug_to_display)
 c_slug_to_display = ['ordinateurs', 'smartphones', 'tablettes', 'gaming', 'cinema']
 categories_to_display = Categorie.objects.filter(slug__in=c_slug_to_display)
+formulaire_recherche = FormulaireRA()
 
 
 @require_POST
@@ -68,4 +70,6 @@ def panier_detail(request):
                                                 'marques': marques,
                                                 'marques_to_display': marques_to_display,
                                                 'categories_to_display': categories_to_display,
-                                                'utilisateur': request.user})
+                                                'utilisateur': request.user,
+                                                'formulaire': formulaire_recherche,
+                                                })

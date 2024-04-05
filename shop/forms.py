@@ -3,12 +3,12 @@ from django import forms
 
 class FormulaireRA(forms.Form):
     mot_cle = forms.CharField(
-        label='recherche',
+        label='',
         max_length=50,
-        required=True,
+        required=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'recherche',
-            'style': 'height: 100%; max-width: 100%; border: none; background-color: white;',
+            'class': 'form-control form-control-sm rounded-4',
+            'placeholder': '🔍 Rechercher',
+            'aria-label': 'Rechercher'  # Accessibilité pour les lecteurs d'écran
         })
     )

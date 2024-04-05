@@ -1,6 +1,6 @@
 {% extends "shop/base.html" %}
 {% block title %}
-    Paiement reussi
+    Activation reussi
 {% endblock %}
 
 {% block content %}
@@ -9,16 +9,16 @@
             <div class="row">
                 <div class="col-md-8 mx-auto">
                     <div class="card text-center">
-                        <div class="card-body bg-light-subtle text-black shadow rounded-3">
+                        <div class="bg-light-subtle text-black">
                             <!-- Smaller square checkmark icon -->
                             <div class="success-icon">
                                 <span class="checkmark">&#10003;</span>
                             </div>
-                            <p class="success-message">Paiement effectué avec succès</p>
-                            <div class="ref-back">
+                            <p class="success-message">Activation effectuée. Vous serez redirigé automatiquement vers la page d'acceuil ou cliquez 
                                 <a href="{% url 'shop:homepage' %}" class="float-right">
-                                    ← Continuez vos achats!
+                                ici
                                 </a>
+                            </p>
                             </div>
                         </div>
                     </div>
@@ -47,4 +47,11 @@
             height: 100%;
         }
     </style>
+
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";
+        }, 5000);
+    </script>
+
 {% endblock %}

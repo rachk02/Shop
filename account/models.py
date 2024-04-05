@@ -32,7 +32,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     code_postal = models.CharField(max_length=50, null=True, blank=True)
     telephone = models.CharField(max_length=50, null=True, blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     groups = models.ManyToManyField(Group, related_name='utilisateurs', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='utilisateurs', blank=True)
