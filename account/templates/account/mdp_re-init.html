@@ -26,10 +26,10 @@
                             <form method="post">
                                 {% csrf_token %}
                                 <div class="mb-3 shadow rounded-3">
-                                    {{ formulaire.nouveau_mdp }}
+                                    {{ formulaire_reinit.nouveau_mdp }}
                                 </div>
                                 <div class="mb-3 shadow rounded-3">
-                                    {{ formulaire.confirmer_mdp }}
+                                    {{ formulaire_reinit.confirmer_mdp }}
                                 </div>
                                 <div class="mb-3 shadow rounded-5">
                                     <button class="btn btn-primary shadow d-block w-100" type="submit">réinitialiser</button>

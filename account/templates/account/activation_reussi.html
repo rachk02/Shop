@@ -1,0 +1,57 @@
+{% extends "shop/base.html" %}
+{% block title %}
+    Activation reussi
+{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card text-center">
+                        <div class="bg-light-subtle text-black">
+                            <!-- Smaller square checkmark icon -->
+                            <div class="success-icon">
+                                <span class="checkmark">&#10003;</span>
+                            </div>
+                            <p class="success-message">Activation effectuée. Vous serez redirigé automatiquement vers la page d'acceuil ou cliquez
+                                <a href="{% url 'shop:homepage' %}" class="float-right">
+                                ici
+                                </a>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Additional styles for the smaller square checkmark */
+        .success-icon {
+            width: 60px; /* Square side length */
+            height: 60px; /* Square side length */
+            background-color: #28a745; /* Green background */
+            border-radius: 50%; /* Rounded corners, adjust as needed */
+            padding: 10px; /* Adjust the padding */
+            margin: 0 auto 20px; /* Center the icon */
+        }
+
+        .checkmark {
+            color: #fff; /* White color for the checkmark */
+            font-size: 24px; /* Adjust the size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+    </style>
+
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";
+        }, 5000);
+    </script>
+
+{% endblock %}

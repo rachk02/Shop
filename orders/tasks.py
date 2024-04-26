@@ -13,7 +13,8 @@ def commande_passer(id_commande):
     # Charger le modèle HTML en tant que chaîne de texte
     html_message = render_to_string('orders/commande_mail.html',
                                     {'username': f'{commande.utilisateur.prenom.lower()} {commande.utilisateur.nom.upper()}',
-                                     'commande': commande, 'panier': commande.items.all(),
+                                     'commande': commande,
+                                     'panier': commande.items.all(),
                                      'total': commande.cout_total()})
 
     # Envoyer l'email avec le contenu HTML

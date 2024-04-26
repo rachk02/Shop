@@ -86,6 +86,12 @@
                                                                 {{ formulaire.ville }}
                                                             </label>
                                                         </div>
+                                                        <div class="ref-row ref-row-region">
+                                                                <label>
+                                                                    <span>Code Postal</span>
+                                                                    {{ formulaire.code_postal }}
+                                                                </label>
+                                                            </div>
                                                     </div>
                                                     <div class="ref-auth-save-address" style="display: block;">
                                                         <label>
@@ -118,11 +124,11 @@
                                                         <a href="{{ item.produit.get_absolute_url }}">
                                                             <div class="ref-product-name">{{ item.produit.nom }}</div>
                                                         </a>
-                                                        <div class="ref-product-secondary">{{ item.produit.prix }} fcfa x {{ item.quantite }}</div>
+                                                        <div class="ref-product-secondary">{{ item.produit.prix }} x {{ item.quantite }}</div>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div class="ref-product-total">{{ item.prix_total }} fcfa</div>
+                                                    <div class="ref-product-total">{{ item.prix_total }}</div>
                                                 </div>
                                             </div>
                                         {% endfor %}
@@ -132,13 +138,13 @@
                                         <div class="ref-subtotal">
                                             <div class="ref-row">
                                                 <span>Somme totale</span>
-                                                <span>{{ panier.get_prix_total }} fcfa</span>
+                                                <span>{{ panier.get_prix_total }}</span>
                                             </div>
                                         </div>
                                         <div class="ref-shipping" style="display: block;">
                                             <div class="ref-row">
                                                 <span>Livraison (Dans tout le pays)</span>
-                                                <span>{{ panier.frais }} fcfa</span>
+                                                <span>{{ panier.frais }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +152,7 @@
                                     <div class="ref-total">
                                         <div class="ref-row">
                                             <span>Total</span>
-                                            <span>${{ panier.get_prix_total|add:panier.frais }}</span>
+                                            <span>{{ panier.get_prix_total|add:panier.frais }}</span>
                                         </div>
                                         <div class="ref-total-note">Tous les prix sont en francs cfa.</div>
                                     </div>
@@ -154,7 +160,7 @@
                                 <div class="ref-summary-toggle ref-field-collapsible">
                                     <span class="ref-field-toggle">
                                         <span class="ref-field-toggle-title">Details</span>
-                                        <span class="ref-summary-total">{{ panier.get_prix_total|add:panier.frais }} fcfa</span>
+                                        <span class="ref-summary-total">{{ panier.get_prix_total|add:panier.frais }} f</span>
                                     </span>
                                 </div>
                             </div>

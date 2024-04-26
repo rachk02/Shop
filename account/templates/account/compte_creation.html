@@ -11,7 +11,7 @@
             <div class="row mb-4 mb-lg-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <p class="fw-bold text-success mb-2"></p>
-                    <h2 class="fw-bold">Création de compte.</h2>
+                    <h2 class="fw-bold">Création de compte</h2>
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
@@ -27,32 +27,37 @@
                                 {% csrf_token %}
                                 <div class="row mb-3">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                    {{ formulaire.nom }}
+                                    {{ formulaire_create.nom }}
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{ formulaire.prenom }}
+                                        {{ formulaire_create.prenom }}
                                     </div>
                                 </div>
                                 <div class="mb-3 shadow rounded-3">
-                                    {{ formulaire.email }}
+                                    {{ formulaire_create.email }}
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{ formulaire.mdp }}
+                                        {{ formulaire_create.mdp }}
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{ formulaire.mdp_2 }}
+                                        {{ formulaire_create.mdp_2 }}
                                     </div>
+                                </div>
+                                <div class="d-flex justify-content-center mb-3">
+                                    {{ formulaire_create.captcha }}
                                 </div>
                                 <div class="mb-3 shadow rounded-5">
                                     <button class="btn btn-primary shadow d-block w-100" type="submit">créer le compte</button>
                                 </div>
-                                <a href="{% url "account:connexion" %}">
-                                    <p style="color: darkgrey">Connectez-vous.</p>
-                                </a>
-                                <a href="{% url "account:mdp_reinit_dem" %}">
-                                    <p style="color: darkgrey">Mot de passe oublié?</p>
-                                </a>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <a href="{% url 'account:connexion' %}">
+                                        <p style="display: inline; color: #4285F4;">Connectez-vous ?</p>
+                                    </a>
+                                    <a href="{% url 'account:mdp_reinit_dem' %}">
+                                        <p style="display: inline; color: darkgrey; margin-right: 10px;">Mot de passe oublié ?</p>
+                                    </a>
+                                </div>
                             </form>
                         </div>
                     </div>

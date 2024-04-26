@@ -37,7 +37,7 @@ def homepage(request):
                    'marques_aleatoires': marques_aleatoires,
                    'formulaire_ajout': formulaire_ajout,
                    'utilisateur': request.user,
-                   'formulaire': formulaire_recherche})
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def marque_list(request):
@@ -50,7 +50,7 @@ def marque_list(request):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'utilisateur': request.user,
-                   'formulaire': formulaire_recherche})
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def categorie_list(request):
@@ -63,7 +63,7 @@ def categorie_list(request):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'utilisateur': request.user,
-                   'formulaire': formulaire_recherche})
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def produit_list(request, categorie_slug=None, marque_slug=None):
@@ -101,7 +101,7 @@ def produit_list(request, categorie_slug=None, marque_slug=None):
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
                    'utilisateur': request.user,
-                   'formulaire': formulaire_recherche})
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def produit_list_marque(request, marque_slug):
@@ -126,7 +126,7 @@ def produit_list_marque(request, marque_slug):
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
                    'utilisateur': request.user,
-                   'formulaire': formulaire_recherche})
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def produit_list_categorie(request, categorie_slug):
@@ -151,7 +151,7 @@ def produit_list_categorie(request, categorie_slug):
                    'categories_to_display': categories_to_display,
                    'formulaire_ajout': formulaire_ajout,
                    'utilisateur': request.user,
-                   'formulaire': formulaire_recherche})
+                   'formulaire_recherche': formulaire_recherche})
 
 
 def produit_list_marque_categorie(request, marque_slug, categorie_slug):
@@ -222,7 +222,7 @@ def recherche_avancee(request):
                 'categories_to_display': categories_to_display,
                 'formulaire_ajout': formulaire_ajout,
                 'utilisateur': request.user,
-                'formulaire': formulaire,
+                'formulaire_recherche': formulaire,
                 'mot_cle': mot_cle
             })
 
@@ -236,5 +236,5 @@ def recherche_avancee(request):
         'categories_to_display': categories_to_display,
         'formulaire_ajout': formulaire_ajout,
         'utilisateur': request.user,
-        'formulaire': formulaire
+        'formulaire_recherche': formulaire
     })

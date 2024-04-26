@@ -1,47 +1,61 @@
-{% extends "shop/base.html" %}
+{% extends "shop/index.html" %}
 {% load static %}
 
 {% block title %}
-    Vos Commandes
+    Commandes
 {% endblock %}
 
 {% block content %}
-    <section class="py-5">
-        <div class="container py-5">
-            <div class="row">
+    <section class="py-3">
+        <div class="px-4 py-3">
+            <div class="row mx-auto">
                 <div class="col">
-                    <h2>Vos Commandes</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Numéro de Commande</th>
-                                <th>Date de Création</th>
-                                <th>Statut de Paiement</th>
-                                <th>Montant de la Commande</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="ref-cart">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2>Historique de Commandes</h2>
+                            <!-- Filtres -->
+                            <form id="filter-form" method="get" class="form-inline">
+                                <div class="form-group mb-3">
+                                    <select name="status" id="status" class="form-control form-control-sm" onchange="document.getElementById('filter-form').submit();">
+                                        <option value="">Tout</option>
+                                        <option value="paid" {% if request.GET.status == 'paid' %}selected{% endif %}>Payé</option>
+                                        <option value="not-paid" {% if request.GET.status == 'not-paid' %}selected{% endif %}>En attente</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- En-têtes -->
+                        <div class="d-flex justify-content-between border-bottom pb-2">
+                            <div class="text-center mb-4" style="width: 20%;">Numéro de Commande</div>
+                            <div class="text-center mb-4" style="width: 20%;">Date</div>
+                            <div class="text-center mb-4" style="width: 20%;">Status</div>
+                            <div class="text-center mb-4" style="width: 20%;">Montant</div>
+                            <div class="text-center mb-4" style="width: 20%;">Action</div>
+                        </div>
+                        <!-- Contenu -->
+                        {% if commandes %}
                             {% for commande in commandes %}
-                                <tr>
-                                    <td>{{ commande.generer_numero_commande }}</td>
-                                    <td>{{ commande.creer|date:"F d, Y H:i" }}</td>
-                                    <td>
+                                <div class="d-flex justify-content-between border-bottom py-2">
+                                    <div class="text-center" style="width: 20%;">{{ commande.generer_numero_commande }}</div>
+                                    <div class="text-center" style="width: 20%;">{{ commande.creer|date:"F d, Y H:i" }}</div>
+                                    <div class="text-center" style="width: 20%;">
                                         {% if commande.payer %}
-                                            <span class="badge badge-success">Payé</span>
+                                            <span class="badge badge-success" style="background-color:rgb(32, 204, 32)">Payé</span>
                                         {% else %}
-                                            <span class="badge badge-warning">En attente de paiement</span>
+                                            <span class="badge badge-warning" style="background-color: rgb(169, 169, 169)">En attente</span>
                                         {% endif %}
-                                    </td>
-                                    <td>{{ commande.cout_total|floatformat:2 }} fcfa</td>
-                                    <td>
-                                        <a href="{% url 'orders:commande_detail' id=commande.id %}" class="btn btn-primary btn-sm">Voir Détails</a>
-                                        <a href="{% url 'orders:commande_pdf' id_commande=commande.id %}" class="btn btn-secondary btn-sm">Générer PDF</a>
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <div class="text-center" style="width: 20%;">{{ commande.cout_total|floatformat:2 }} fcfa</div>
+                                    <div class="text-center" style="width: 20%;" class="text-center">
+                                        <a href="{% url 'orders:commande_detail' id=commande.id %}" class="btn btn-primary btn-sm me-1">Détails</a>
+                                        <a href="{% url 'orders:commande_pdf' id_commande=commande.id %}" class="btn btn-primary btn-sm mx-1">Télécharger</a>
+                                    </div>
+                                </div>
                             {% endfor %}
-                        </tbody>
-                    </table>
+                        {% else %}
+                            <div class="text-center py-3">Aucune commande trouvée dans votre historique.</div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

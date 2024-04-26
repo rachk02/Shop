@@ -1,0 +1,25 @@
+{% load static %}
+{% load tz %}
+
+
+{% get_current_timezone as TIME_ZONE %}
+{% localtime on %}
+
+{% now "H" as current_hour %}
+
+{% if current_hour|time:'H' >= 4 and current_hour|time:'H' < 12 %}
+    Bonjour,<br>
+{% else %}
+    Bonsoir,<br>
+{% endif %}
+<br>
+Vous recevez cet e-mail car une demande de création d'un compte utilisateur a été effectuée en utilisant votre e-mail.<br>
+<br>
+Cliquez sur le lien ci-dessous pour confirmer votre identité :<br>
+<a href="{{ lien }}">{{ lien }}</a><br>
+<br>
+Si vous n'avez pas a l'origine de cette demande, veuillez ignorer cet e-mail.<br>
+<br>
+Cordialement,<br>
+L'équipe de Clord.
+{% endlocaltime %}

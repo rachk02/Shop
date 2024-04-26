@@ -40,11 +40,11 @@
 }
 
 .custom-badge-success {
-        background-color: green;
-        color: white;
-    }
+    background-color: green;
+    color: white;
+}
 
-    .custom-badge-danger {
+.custom-badge-danger {
         background-color: red;
-        color: white;
-    }
+    color: white;
+}

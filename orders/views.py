@@ -13,6 +13,7 @@ from .tasks import commande_passer
 from django.urls import reverse
 import weasyprint
 from django.contrib.admin.views.decorators import staff_member_required
+from shop.forms import FormulaireRA
 
 # Create your views here.
 
@@ -23,17 +24,26 @@ m_slug_to_display = ['apple', 'samsung', 'asus', 'dell', 'sony']
 marques_to_display = Marque.objects.filter(slug__in=m_slug_to_display)
 c_slug_to_display = ['ordinateurs', 'smartphones', 'tablettes', 'gaming', 'cinema']
 categories_to_display = Categorie.objects.filter(slug__in=c_slug_to_display)
+formulaire_recherche = FormulaireRA()
 
 
-@login_required  # Ajoutez le décorateur ici
 def creer_commande(request):
     panier = Panier(request)
     total = panier.get_prix_total()
+    utilisateur = request.user
+    initial_data = {
+        'email': utilisateur.email,
+        'nom': f"{utilisateur.nom} {utilisateur.prenom}",
+        'adresse': utilisateur.adresse,
+        'telephone': utilisateur.telephone,
+        'code_postal': utilisateur.code_postal,
+        'ville': utilisateur.ville
+    }
+
     if request.method == 'POST':
         formulaire = FormulaireDeCC(request.POST)
 
         if formulaire.is_valid():
-            utilisateur = request.user
             commande = formulaire.save(commit=False)
             commande.utilisateur = utilisateur
             commande.save()
@@ -55,7 +65,7 @@ def creer_commande(request):
             return redirect(reverse('payment:processus_de_paiement'))
 
     else:
-        formulaire = FormulaireDeCC()
+        formulaire = FormulaireDeCC(initial=initial_data)
 
     return render(request, 'orders/cr_commande.html', {
         'panier': panier,
@@ -64,7 +74,8 @@ def creer_commande(request):
         'categories': categories,
         'marques': marques,
         'marques_to_display': marques_to_display,
-        'categories_to_display': categories_to_display
+        'categories_to_display': categories_to_display,
+        'formulaire_recherche': formulaire_recherche,
     })
 
 
@@ -97,12 +108,34 @@ def commande_pdf(request, id_commande):
     return response
 
 
+@login_required
 def liste_commandes(request):
     user = request.user
-    commandes = Commande.objects.filter(utilisateur=user).order_by('-creer')
-    return render(request, 'orders/liste_commandes.html', {'commandes': commandes})
+    status = request.GET.get('status', '')
+
+    commandes = Commande.objects.filter(utilisateur=user)
+    if status == 'paid':
+        commandes = commandes.filter(payer=True)
+    elif status == 'not-paid':
+        commandes = commandes.filter(payer=False)
+
+    return render(request, 'orders/liste_commandes.html', {
+        'commandes': commandes,
+        'categories': categories,
+        'marques': marques,
+        'marques_to_display': marques_to_display,
+        'categories_to_display': categories_to_display,
+        'formulaire_recherche': formulaire_recherche,
+    })
 
 
 def commande_detail(request, id):
     commande = get_object_or_404(Commande, id=id)
-    return render(request, 'orders/commande_detail.html', {'commande': commande})
+    return render(request, 'orders/commande_detail.html', {'commande': commande,
+                                                           'utilisateur': request.user,
+                                                           'categories': categories,
+                                                            'marques': marques,
+                                                            'marques_to_display': marques_to_display,
+                                                            'categories_to_display': categories_to_display,
+                                                            'formulaire_recherche': formulaire_recherche,
+                                                           })

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,7 @@ STRIPE_PUBLIC_KEY = 'pk_test_51OoClRG3WiqBlBOW1S4gWaF79Qa2wqImM0eWGFz3m8lHdDaUmy
 STRIPE_SECRET_KEY = 'sk_test_51OoClRG3WiqBlBOWj2LsLa3pwp5VwJIufOpQUUnSk7CvkBbCRkoDjbPRHIzkm5egSYLDp9aqfdyZ0TSrvmCwZ36l00uDCBv8Xs'
 STRIPE_API_VERSION = '2023-10-16'
 STRIPE_WEBHOOK_SECRET = 'whsec_517673b46fb9c91dfd116286b713e841d17b7d882cc3bf210e7922531376c1ab'
+
+# Recaptcha(v2)
+RECAPTCHA_PUBLIC_KEY = '6LdqxK0pAAAAACc0yfxvYCYaHBErBbsRw3rOCul-'
+RECAPTCHA_PRIVATE_KEY = '6LdqxK0pAAAAAEf5UqF9omC0qm38686as8KsXfJZ'
