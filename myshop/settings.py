@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
     'django_recaptcha',
+    'allauth',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +78,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+LOGIN_REDIRECT_URL = 'shop:homepage'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -160,3 +172,5 @@ STRIPE_WEBHOOK_SECRET = 'whsec_517673b46fb9c91dfd116286b713e841d17b7d882cc3bf210
 # Recaptcha(v2)
 RECAPTCHA_PUBLIC_KEY = '6LdqxK0pAAAAACc0yfxvYCYaHBErBbsRw3rOCul-'
 RECAPTCHA_PRIVATE_KEY = '6LdqxK0pAAAAAEf5UqF9omC0qm38686as8KsXfJZ'
+
+SOCIALACCOUNT_ADAPTER = 'account.adapters.MySocialAccountAdapter'

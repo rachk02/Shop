@@ -123,6 +123,7 @@ def liste_commandes(request):
         'commandes': commandes,
         'categories': categories,
         'marques': marques,
+        'utilisateur': request.user,
         'marques_to_display': marques_to_display,
         'categories_to_display': categories_to_display,
         'formulaire_recherche': formulaire_recherche,

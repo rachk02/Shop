@@ -39,7 +39,7 @@
                                                                     <div class="ref-product-variants"></div>
                                                                     <div class="ref-product-personalization-holder"></div>
                                                                 </div>
-                                                                <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} fcfa</div>
+                                                                <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} f</div>
                                                             </div>
                                                             <div class="ref-product-controls ref-mobile-product-controls">
                                                                 <div class="ref-product-quantity">
@@ -68,7 +68,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="ref-price-col">
-                                                    <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} fcfa{% else %}{{ produit.prix }} fcfa{% endif %}</div>
+                                                    <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} f{% else %}{{ produit.prix }} f{% endif %}</div>
                                                 </div>
                                                 <div class="ref-quantity-col">
                                                     <div class="ref-product-quantity">
@@ -93,7 +93,7 @@
                                                 </div>
                                                 <div class="ref-total-col">
                                                     <div class="ref-product-total">
-                                                        <div class="ref-product-total-sum">{{ item.cout }} fcfa</div>
+                                                        <div class="ref-product-total-sum">{{ item.cout }} f</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,20 +107,20 @@
                                 <div class="ref-total">
                                     <div class="ref-row">
                                         <span>Somme totale</span>
-                                        <span>{{ commande.cout_total }} fcfa</span>
+                                        <span>{{ commande.cout_total }} f</span>
                                     </div>
                                 </div>
                                 <div class="ref-shipping" style="display: block;">
                                     <div class="ref-row">
                                         <span>Livraison</span>
-                                        <span>{{ commande.frais }} fcfa</span>
+                                        <span>{{ commande.frais }} f</span>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="ref-total">
                                     <div class="ref-row">
                                         <span>Total</span>
-                                        <span>{{ commande.cout_total|add:commande.frais }} fcfa</span>
+                                        <span>{{ commande.cout_total|add:commande.frais }} f</span>
                                     </div>
                                     <div class="ref-total-note"></div>
                                 </div>

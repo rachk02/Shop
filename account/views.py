@@ -53,7 +53,7 @@ def connexion(request):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche,
+                   'formulaire': formulaire_recherche,
                    })
 
 
@@ -98,7 +98,7 @@ def mdp_change(request):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche,
+                   'formulaire': formulaire_recherche,
                    })
 
 
@@ -121,7 +121,7 @@ def mdp_reinit_dem(request):
     return render(request, 'account/mdp_re-init_dem.html',
                   {'formulaire': formulaire,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche,
+                   'formulaire': formulaire_recherche,
                    })
 
 
@@ -196,7 +196,7 @@ def compte_creation(request):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche,
+                   'formulaire': formulaire_recherche,
                    })
 
 
@@ -225,7 +225,7 @@ def activation_reussi(request):
                    'marques_to_display': marques_to_display,
                    'categories_to_display': categories_to_display,
                    'utilisateur': request.user,
-                   'formulaire_recherche': formulaire_recherche,
+                   'formulaire': formulaire_recherche,
                    })
 
 

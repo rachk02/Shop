@@ -43,7 +43,7 @@
                                                                                         <div>
                                                                                             <div class="ref-product-name">{{ produit.nom }}</div>
                                                                                         </div>
-                                                                                        <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} fcfa</div>
+                                                                                        <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} f</div>
                                                                                     </div>
                                                                                     <div class="ref-product-controls ref-mobile-product-controls">
                                                                                         <div class="ref-product-quantity">
@@ -60,7 +60,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="ref-price-col">
-                                                                            <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} fcfa{% else %}{{ produit.prix }} fcfa{% endif %}</div>
+                                                                            <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} f{% else %}{{ produit.prix }} f{% endif %}</div>
                                                                         </div>
                                                                         <div class="ref-quantity-col">
                                                                             <div class="ref-product-quantity">
@@ -73,7 +73,7 @@
                                                                         </div>
                                                                         <div class="ref-total-col">
                                                                             <div class="ref-product-total">
-                                                                                <div class="ref-product-total-sum">{{ item.prix_total }} fcfa</div>
+                                                                                <div class="ref-product-total-sum">{{ item.prix_total }} f</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -88,7 +88,7 @@
                                 </div>
                             </section>
                             <p class="card-text">
-                                Montant total : {{ total }} fcfa
+                                Montant total : {{ total }} f
                             </p>
                             <p class="card-text">
                                 Nous allons traiter votre commande et vous fournirons bientôt plus de détails.

@@ -14,145 +14,150 @@
                         <div class="reflow-shopping-cart" style="display: block;">
                             <div class="ref-loading-overlay"></div>
                             <div class="ref-message" style="display: none;"></div>
-                            <div class="ref-cart" style="display: block;">
-                                <div class="ref-heading">Votre Panier</div>
-                                <div class="ref-th">
-                                    <div class="ref-product-col">Produit</div>
-                                    <div class="ref-price-col">Prix</div>
-                                    <div class="ref-quantity-col">Quantite</div>
-                                    <div class="ref-total-col">Total</div>
-                                </div>
-                                <div class="ref-cart-table">
-                                    {% for item in panier %}
-                                        {% with produit=item.produit %}
-                                            <div class="ref-product">
-                                                <div class="ref-product-col">
-                                                    <div class="ref-product-wrapper">
-                                                        <a href="{{ produit.get_absolute_url }}">
-                                                            <img class="ref-product-photo" src="{{ produit.image.url }}" alt="{{ produit.slug }}" />
-                                                        </a>
-                                                        <div class="ref-product-data">
-                                                            <div class="ref-product-info">
-                                                                <div>
-                                                                    <div class="ref-product-name">{{ produit.nom }}</div>
-                                                                    <a href="{{ produit.categorie.get_absolute_url }}">
-                                                                        <div class="ref-product-category">{{ produit.categorie }}</div>
-                                                                    </a>
-                                                                    <div class="ref-product-variants"></div>
-                                                                    <div class="ref-product-personalization-holder"></div>
-                                                                </div>
-                                                                <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} fcfa</div>
-                                                            </div>
-                                                            <div class="ref-product-controls ref-mobile-product-controls">
-                                                                <div class="ref-product-quantity">
-                                                                    <div class="ref-quantity-container">
-                                                                        <div class="ref-quantity-widget">
-                                                                            <span>
-                                                                                <form id="majQteForm" action="{% url "cart:maj_quantite" produit.id %}" method="post" class="maj-quantite-form" data-produit-id="{{ produit.id }}">
-                                                                                    {% csrf_token %}
-                                                                                    <div class="ref-quantity-widget shadow">
-                                                                                        <div class="ref-decrease cart-decrease" onclick="decreasePinPQuantite('{{ produit.id }}')">
-                                                                                            <span></span>
-                                                                                        </div>
-                                                                                        <input type="text" value="{{ item.quantite }}" name="quantite" class="ref-quantity-field ref-quantity-input" style="font-size: 17px">
-                                                                                        <div class="ref-increase cart-increase" onclick="increasePinPQuantite('{{ produit.id }}')">
-                                                                                            <span></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <input type="hidden" name="produit_id" value="{{ produit.id }}">
-                                                                                </form>
-                                                                            </span>
-                                                                        </div>
+                            {% if panier %}
+                                <div class="ref-cart" style="display: block;">
+                                    <div class="ref-heading">Votre Panier</div>
+                                    <div class="ref-th">
+                                        <div class="ref-product-col">Produit</div>
+                                        <div class="ref-price-col">Prix</div>
+                                        <div class="ref-quantity-col">Quantite</div>
+                                        <div class="ref-total-col">Total</div>
+                                    </div>
+                                    <div class="ref-cart-table">
+                                        {% for item in panier %}
+                                            {% with produit=item.produit %}
+                                                <div class="ref-product">
+                                                    <div class="ref-product-col">
+                                                        <div class="ref-product-wrapper">
+                                                            <a href="{{ produit.get_absolute_url }}">
+                                                                <img class="ref-product-photo" src="{{ produit.image.url }}" alt="{{ produit.slug }}" />
+                                                            </a>
+                                                            <div class="ref-product-data">
+                                                                <div class="ref-product-info">
+                                                                    <div>
+                                                                        <div class="ref-product-name">{{ produit.nom }}</div>
+                                                                        <a href="{{ produit.categorie.get_absolute_url }}">
+                                                                            <div class="ref-product-category">{{ produit.categorie }}</div>
+                                                                        </a>
+                                                                        <div class="ref-product-variants"></div>
+                                                                        <div class="ref-product-personalization-holder"></div>
                                                                     </div>
-                                                                    <div class="ref-product-qty-message"></div>
+                                                                    <div class="ref-product-price ref-mobile-product-price">{{ item.prix }} f</div>
                                                                 </div>
-                                                                <div class="ref-product-remove">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
-                                                                        <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                                                <div class="ref-product-controls ref-mobile-product-controls">
+                                                                    <div class="ref-product-quantity">
+                                                                        <div class="ref-quantity-container">
+                                                                            <div class="ref-quantity-widget">
+                                                                                <span>
+                                                                                    <form id="majQteForm" action="{% url "cart:maj_quantite" produit.id %}" method="post" class="maj-quantite-form" data-produit-id="{{ produit.id }}">
+                                                                                        {% csrf_token %}
+                                                                                        <div class="ref-quantity-widget shadow">
+                                                                                            <div class="ref-decrease cart-decrease" onclick="decreasePinPQuantite('{{ produit.id }}')">
+                                                                                                <span></span>
+                                                                                            </div>
+                                                                                            <input type="text" value="{{ item.quantite }}" name="quantite" class="ref-quantity-field ref-quantity-input" style="font-size: 17px">
+                                                                                            <div class="ref-increase cart-increase" onclick="increasePinPQuantite('{{ produit.id }}')">
+                                                                                                <span></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <input type="hidden" name="produit_id" value="{{ produit.id }}">
+                                                                                    </form>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ref-product-qty-message"></div>
+                                                                    </div>
+                                                                    <div class="ref-product-remove">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
+                                                                            <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ref-price-col">
+                                                        <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} f{% else %}{{ produit.prix }} f{% endif %}</div>
+                                                    </div>
+                                                    <div class="ref-quantity-col">
+                                                        <div class="ref-product-quantity">
+                                                            <div class="ref-quantity-container">
+                                                                <span>
+                                                                    <form id="majQteForm" action="{% url "cart:maj_quantite" produit.id %}" method="post" class="maj-quantite-form" data-produit-id="{{ produit.id }}">
+                                                                        {% csrf_token %}
+                                                                        <div class="ref-quantity-widget shadow">
+                                                                            <div class="ref-decrease cart-decrease" onclick="decreasePinPQuantite('{{ produit.id }}')">
+                                                                                <span></span>
+                                                                            </div>
+                                                                            <input type="text" value="{{ item.quantite }}" name="quantite" class="ref-quantity-field ref-quantity-input" style="font-size: 17px">
+                                                                            <div class="ref-increase cart-increase" onclick="increasePinPQuantite('{{ produit.id }}')">
+                                                                                <span></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <input type="hidden" name="produit_id" value="{{ produit.id }}">
+                                                                    </form>
+                                                                </span>
+
+                                                            </div>
+                                                            <form id="retirerUnPinPForm-{{ produit.id }}" action="{% url "cart:retirer_produit" produit.id %}" method="post" style="display: none">
+                                                                {% csrf_token %}
+                                                            </form>
+                                                            <div class="row">
+                                                                <div id="retirerUnPinPBtn-{{ produit.id }}" class="ref-product-remove d-flex justify-content-end col retirer-un-pinp-btn" data-produit-id="{{ produit.id }}" type="submit">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
+                                                                    <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                                                </svg>
+                                                            </div>
+                                                                <div id="majQteBtn-{{ produit.id }}" class="ref-product-update d-flex justify-content-start py-2 col maj-qte-btn" data-produit-id="{{ produit.id }}" type="submit">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 20 20" width="1em" fill="blue" style="width: 18px;">
+                                                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                        <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path>
                                                                     </svg>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="ref-price-col">
-                                                    <div class="ref-product-price">{% if produit.promotion %}{{ produit.prix_promotionnel }} fcfa{% else %}{{ produit.prix }} fcfa{% endif %}</div>
-                                                </div>
-                                                <div class="ref-quantity-col">
-                                                    <div class="ref-product-quantity">
-                                                        <div class="ref-quantity-container">
-                                                            <span>
-                                                                <form id="majQteForm" action="{% url "cart:maj_quantite" produit.id %}" method="post" class="maj-quantite-form" data-produit-id="{{ produit.id }}">
-                                                                    {% csrf_token %}
-                                                                    <div class="ref-quantity-widget shadow">
-                                                                        <div class="ref-decrease cart-decrease" onclick="decreasePinPQuantite('{{ produit.id }}')">
-                                                                            <span></span>
-                                                                        </div>
-                                                                        <input type="text" value="{{ item.quantite }}" name="quantite" class="ref-quantity-field ref-quantity-input" style="font-size: 17px">
-                                                                        <div class="ref-increase cart-increase" onclick="increasePinPQuantite('{{ produit.id }}')">
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <input type="hidden" name="produit_id" value="{{ produit.id }}">
-                                                                </form>
-                                                            </span>
-
-                                                        </div>
-                                                        <form id="retirerUnPinPForm-{{ produit.id }}" action="{% url "cart:retirer_produit" produit.id %}" method="post" style="display: none">
-                                                            {% csrf_token %}
-                                                        </form>
-                                                        <div class="row">
-                                                            <div id="retirerUnPinPBtn-{{ produit.id }}" class="ref-product-remove d-flex justify-content-end col retirer-un-pinp-btn" data-produit-id="{{ produit.id }}" type="submit">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
-                                                                <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
-                                                            </svg>
-                                                        </div>
-                                                            <div id="majQteBtn-{{ produit.id }}" class="ref-product-update d-flex justify-content-start py-2 col maj-qte-btn" data-produit-id="{{ produit.id }}" type="submit">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 20 20" width="1em" fill="blue" style="width: 18px;">
-                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                                                    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path>
-                                                                </svg>
-                                                            </div>
+                                                    <div class="ref-total-col">
+                                                        <div class="ref-product-total">
+                                                            <div class="ref-product-total-sum">{{ item.prix_total }} f</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="ref-total-col">
-                                                    <div class="ref-product-total">
-                                                        <div class="ref-product-total-sum">{{ item.prix_total }} fcfa</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endwith %}
-                                    {% endfor %}
-                                </div>
-                                <div class="ref-footer">
-                                    <div class="ref-links">
-                                        <a href="#"></a>
-                                        <a href="#"></a>
-                                        <a href="#"></a>
-                                    </div>
-                                    <div class="ref-totals">
-                                        <div class="ref-subtotal">Total: {{ panier.get_prix_total }} fcfa</div>
-                                        <form class="ref-accept-terms" style="display: block;">
-                                            <label>
-
-                                                <span class="ref-terms-agreement-text">
-                                                    <span></span>
-                                                    <a href="#"></a>
-                                                    <span></span>
-                                                    <a href="#"></a>
-                                                    <span></span>
-                                                    <a href="#"></a>
-                                                </span>
-                                            </label>
-                                        </form>
-                                        <div class="ref-row ref-checkout-buttons">
-                                            <a href="{% url "orders:creer_commande" %}">
-                                                <div class="ref-button ref-standard-checkout-button">
-                                                    commander
-                                                </div>
-                                            </a>
+                                            {% endwith %}
+                                        {% endfor %}
                                         </div>
+                                        <div class="ref-footer">
+                                            <div class="ref-links">
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                            </div>
+                                            <div class="ref-totals">
+                                                <div class="ref-subtotal">Total: {{ panier.get_prix_total }} f</div>
+                                                <form class="ref-accept-terms" style="display: block;">
+                                                    <label>
+                                                        <span class="ref-terms-agreement-text">
+                                                            <span></span>
+                                                            <a href="#"></a>
+                                                            <span></span>
+                                                            <a href="#"></a>
+                                                            <span></span>
+                                                            <a href="#"></a>
+                                                        </span>
+                                                    </label>
+                                                </form>
+                                                <div class="ref-row ref-checkout-buttons">
+                                                    <a href="{% url "orders:creer_commande" %}">
+                                                        <div class="ref-button ref-standard-checkout-button">
+                                                            commander
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                        {% else %}
+                                            <div class="text-center py-3">
+                                                Aucun produit trouvé dans votre panier. <a href="{% url 'shop:homepage' %}">Continuez vos achats</a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

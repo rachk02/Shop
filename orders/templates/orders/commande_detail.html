@@ -47,11 +47,11 @@
                             <div class="text-center" style="width: 25%;">{{ item.produit.nom }}</div>
                             <div class="text-center" style="width: 25%;">{{ item.prix|floatformat:2 }}</div>
                             <div class="text-center" style="width: 25%;">{{ item.quantite }}</div>
-                            <div class="text-center" style="width: 25%;">{{ item.cout|floatformat:2 }} fcfa</div>
+                            <div class="text-center" style="width: 25%;">{{ item.cout|floatformat:2 }} f</div>
                         </div>
                     {% endfor %}
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <h2>Montant total: {{ commande.cout_total }} fcfa</h2>
+                        <h2>Montant total: {{ commande.cout_total }} f</h2>
                         {% if not commande.payer %}
                             <a href="{% url 'payment:paiement_unique' id_commande=commande.id %}" class="btn btn-primary btn-sm ml-2">Payer maintenant</a>
                         {% endif %}

@@ -24,16 +24,16 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- En-têtes -->
-                        <div class="d-flex justify-content-between border-bottom pb-2">
-                            <div class="text-center mb-4" style="width: 20%;">Numéro de Commande</div>
-                            <div class="text-center mb-4" style="width: 20%;">Date</div>
-                            <div class="text-center mb-4" style="width: 20%;">Status</div>
-                            <div class="text-center mb-4" style="width: 20%;">Montant</div>
-                            <div class="text-center mb-4" style="width: 20%;">Action</div>
-                        </div>
-                        <!-- Contenu -->
                         {% if commandes %}
+                            <!-- En-têtes -->
+                            <div class="d-flex justify-content-between border-bottom pb-2">
+                                <div class="text-center mb-4" style="width: 20%;">Numéro de Commande</div>
+                                <div class="text-center mb-4" style="width: 20%;">Date</div>
+                                <div class="text-center mb-4" style="width: 20%;">Status</div>
+                                <div class="text-center mb-4" style="width: 20%;">Montant</div>
+                                <div class="text-center mb-4" style="width: 20%;">Action</div>
+                            </div>
+                            <!-- Contenu -->
                             {% for commande in commandes %}
                                 <div class="d-flex justify-content-between border-bottom py-2">
                                     <div class="text-center" style="width: 20%;">{{ commande.generer_numero_commande }}</div>
@@ -45,7 +45,7 @@
                                             <span class="badge badge-warning" style="background-color: rgb(169, 169, 169)">En attente</span>
                                         {% endif %}
                                     </div>
-                                    <div class="text-center" style="width: 20%;">{{ commande.cout_total|floatformat:2 }} fcfa</div>
+                                    <div class="text-center" style="width: 20%;">{{ commande.cout_total|floatformat:2 }} f</div>
                                     <div class="text-center" style="width: 20%;" class="text-center">
                                         <a href="{% url 'orders:commande_detail' id=commande.id %}" class="btn btn-primary btn-sm me-1">Détails</a>
                                         <a href="{% url 'orders:commande_pdf' id_commande=commande.id %}" class="btn btn-primary btn-sm mx-1">Télécharger</a>

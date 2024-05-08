@@ -97,6 +97,7 @@
                             <a class="dropdown-item" href="{% url 'account:deconnexion' %}">Se déconnecter</a>
                         {% else %}
                             <a class="dropdown-item" href="{% url 'account:connexion' %}">Se connecter</a>
+                            <a class="dropdown-item" href="{% url 'account:compte_creation' %}">Créer un compte</a>
                         {% endif %}
                     </div>
                 </div>
@@ -139,12 +140,13 @@
                 <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
                     <h3 class="fs-6 fw-bold text-white">Compte</h3>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'account:profile_edit' %}">Gérer votre compte</a></li>
-                        <li><a href="{% url 'account:mdp_reinit_dem' %}">mdp oublie</a></li>
                         {% if utilisateur.is_authenticated %}
+                            <li><a href="{% url 'account:profile_edit' %}">Gérer votre compte</a></li>
+                            <li><a href="{% url 'account:mdp_reinit_dem' %}">mdp oublie</a></li>
                             <li><a href="{% url 'account:deconnexion' %}">Deconnexion</a></li>
                         {% else %}
                             <li><a href="{% url 'account:connexion' %}">Connexion</a></li>
+                            <li><a href="{% url 'account:compte_creation' %}">Créer un compte</a></li>
                         {% endif %}
                     </ul>
                 </div><!-- End: Compte -->
@@ -164,7 +166,11 @@
                         <li><a href="{% url 'orders:liste_commandes' %}">Commandes</a></li>
                         <li><a href="#">Paiement</a></li>
                         <li><a href="#">Livraison</a></li>
-                        <li><a href="{% url 'account:profile_edit' %}">Comptes</a></li>
+                        {% if utilisateur.is_authenticated %}
+                            <li><a href="{% url 'account:profile_edit' %}">Comptes</a></li>
+                        {% else %}
+                            <li><a href="{% url 'account:connexion' %}">Comptes</a></li>
+                        {% endif %}
                     </ul>
                 </div><!-- End: Fonctionnalites -->
             </div>

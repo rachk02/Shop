@@ -7,7 +7,11 @@ from orders.models import Utilisateur
 
 @shared_task
 def confirmation(id_utilisateur, lien):
-    utilisateur = Utilisateur.objects.get(id=id_utilisateur)
+    try:
+        utilisateur = Utilisateur.objects.get(id=id_utilisateur)
+    except Utilisateur.DoesNotExist:
+        print(f"L'utilisateur avec l'id {id_utilisateur} n'existe pas.")
+        return None
 
     objet = 'Confirmation de votre identite'
     html_message = render_to_string('account/activation_mail.html',
